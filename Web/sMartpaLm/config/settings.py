@@ -34,6 +34,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    'common',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -89,11 +90,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',
-        'USER': 'host',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'NAME': 'smartpalm',
+        'USER': 'smartpalm',
+        'PASSWORD': 'smartpalm',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
