@@ -1,5 +1,7 @@
 import paho.mqtt.client as mqtt
 import json
+from Utilities.comUtilities import get_property
+
 class MosPub:
     def __init__(self):
         # 새로운 클라이언트 생성
@@ -9,7 +11,8 @@ class MosPub:
         self.client.on_disconnect = self.on_disconnect
         self.client.on_publish = self.on_publish
         # address : localhost, port: 1883 에 연결
-        self.client.connect('localhost', 1883)
+        # self.client.connect('localhost', 1883)
+        self.client.connect(get_property('URLs', 'mqtt_sever'), int(get_property('URLs', 'mqtt_port')))
 
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
@@ -40,7 +43,8 @@ class MosSub:
         self.client.on_subscribe = self.on_subscribe
         self.client.on_publish = self.on_publish
         # address : localhost, port: 1883 에 연결
-        self.client.connect('localhost', 1883)
+        # self.client.connect('localhost', 1883)
+        self.client.connect(get_property('URLs', 'mqtt_sever'), int(get_property('URLs', 'mqtt_port')))
 
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
