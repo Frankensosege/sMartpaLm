@@ -1,113 +1,56 @@
 absl-py==1.4.0
-alembic @ file:///home/conda/feedstock_root/build_artifacts/alembic_1678309044210/work
 appdirs==1.4.4
 arelle-release==2.10.2
 asgiref==3.6.0
-asttokens @ file:///opt/conda/conda-bld/asttokens_1646925590279/work
 astunparse==1.6.3
-backcall @ file:///home/ktietz/src/ci/backcall_1611930011877/work
 beautifulsoup4==4.12.2
-Bottleneck @ file:///C:/Windows/Temp/abs_3198ca53-903d-42fd-87b4-03e6d03a8381yfwsuve8/croots/recipe/bottleneck_1657175565403/work
 brotlipy==0.7.0
 cachetools==5.3.0
 certifi==2022.12.7
-cffi @ file:///C:/b/abs_49n3v2hyhr/croot/cffi_1670423218144/work
-charset-normalizer @ file:///tmp/build/80754af9/charset-normalizer_1630003229654/work
-click @ file:///C:/ci/click_1646056762388/work
-colorama @ file:///C:/b/abs_a9ozq0l032/croot/colorama_1672387194846/work
-comm @ file:///C:/b/abs_1419earm7u/croot/comm_1671231131638/work
 contourpy==1.0.7
-cryptography @ file:///C:/b/abs_8ecplyc3n2/croot/cryptography_1677533105000/work
 cycler==0.11.0
 dart-fss==0.4.3
-debugpy @ file:///C:/ci_310/debugpy_1642079916595/work
-decorator @ file:///opt/conda/conda-bld/decorator_1643638310831/work
 Django==4.1.7
-entrypoints @ file:///C:/ci/entrypoints_1649926676279/work
 et-xmlfile==1.1.0
-executing @ file:///opt/conda/conda-bld/executing_1646925071911/work
 fake-useragent==1.1.3
-Flask @ file:///C:/b/abs_ef16l83sif/croot/flask_1671217367534/work
-Flask-Migrate @ file:///home/conda/feedstock_root/build_artifacts/flask-migrate_1675404414747/work
 Flask-MySQLdb==1.0.1
-Flask-SQLAlchemy @ file:///home/conda/feedstock_root/build_artifacts/flask-sqlalchemy_1675194219027/work
 flatbuffers==23.5.9
 fonttools==4.39.4
 gast==0.4.0
 google-auth==2.18.1
 google-auth-oauthlib==0.4.6
 google-pasta==0.2.0
-greenlet @ file:///C:/b/abs_47lk_w2ajq/croot/greenlet_1670513248400/work
 grpcio==1.54.2
 h5py==3.8.0
 halo==0.0.31
-idna @ file:///C:/b/abs_bdhbebrioa/croot/idna_1666125572046/work
-importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1672612343532/work
-importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1676919000169/work
-ipykernel @ file:///C:/b/abs_b4f07tbsyd/croot/ipykernel_1672767104060/work
-ipython @ file:///C:/b/abs_d3h279dv3h/croot/ipython_1676582236558/work
 isodate==0.6.1
-itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
-jedi @ file:///C:/ci/jedi_1644315428305/work
-Jinja2 @ file:///C:/b/abs_7cdis66kl9/croot/jinja2_1666908141852/work
-joblib @ file:///C:/b/abs_e60_bwl1v6/croot/joblib_1666298845728/work
-jupyter_client @ file:///C:/b/abs_d8fk_kz9zk/croot/jupyter_client_1676330195659/work
-jupyter_core @ file:///C:/b/abs_bd7elvu3w2/croot/jupyter_core_1676538600510/work
 keras==2.11.0
 kiwisolver==1.4.4
 libclang==16.0.0
 log-symbols==0.0.14
 lxml==4.9.2
-Mako @ file:///home/conda/feedstock_root/build_artifacts/mako_1668568582731/work
 Markdown==3.4.3
-MarkupSafe @ file:///C:/ci/markupsafe_1654508036328/work
 matplotlib==3.7.1
-matplotlib-inline @ file:///C:/ci/matplotlib-inline_1661934094726/work
 mkl-fft==1.3.1
-mkl-random @ file:///C:/ci_310/mkl_random_1643050563308/work
 mkl-service==2.4.0
 mplfinance==0.12.9b7
 mysqlclient==2.1.1
-nest-asyncio @ file:///C:/b/abs_3a_4jsjlqu/croot/nest-asyncio_1672387322800/work
-numexpr @ file:///C:/b/abs_a7kbak88hk/croot/numexpr_1668713882979/work
-numpy @ file:///C:/b/abs_datssh7cer/croot/numpy_and_numpy_base_1672336199388/work
 oauthlib==3.2.2
 openpyxl==3.1.2
 opt-einsum==3.3.0
-packaging @ file:///C:/b/abs_cfsup8ur87/croot/packaging_1671697442297/work
-pandas @ file:///C:/b/abs_c6fuezktfm/croot/pandas_1670425103552/work
-parso @ file:///opt/conda/conda-bld/parso_1641458642106/work
-pickleshare @ file:///tmp/build/80754af9/pickleshare_1606932040724/work
 Pillow==9.5.0
-platformdirs @ file:///C:/b/abs_73cc5cz_1u/croots/recipe/platformdirs_1662711386458/work
-pooch @ file:///tmp/build/80754af9/pooch_1623324770023/work
-prompt-toolkit @ file:///C:/b/abs_6coz5_9f2s/croot/prompt-toolkit_1672387908312/work
 protobuf==3.19.6
-psutil @ file:///C:/Windows/Temp/abs_b2c2fd7f-9fd5-4756-95ea-8aed74d0039flsd9qufz/croots/recipe/psutil_1656431277748/work
-pure-eval @ file:///opt/conda/conda-bld/pure_eval_1646925070566/work
 pyasn1==0.5.0
 pyasn1-modules==0.3.0
-pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
-Pygments @ file:///opt/conda/conda-bld/pygments_1644249106324/work
-pyOpenSSL @ file:///C:/b/abs_552w85x1jz/croot/pyopenssl_1677607703691/work
 pyparsing==3.0.9
-PySocks @ file:///C:/ci_310/pysocks_1642089375450/work
-python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
-pytz @ file:///C:/b/abs_22fofvpn1x/croot/pytz_1671698059864/work
 pywin32==305.1
-pyzmq @ file:///C:/ci/pyzmq_1657616000714/work
 regex==2023.5.5
-requests @ file:///C:/ci/requests_1657735340829/work
 requests-oauthlib==1.3.1
 rsa==4.9
-scikit-learn @ file:///C:/b/abs_7ck_bnw91r/croot/scikit-learn_1676911676133/work
 scipy==1.10.0
-six @ file:///tmp/build/80754af9/six_1644875935023/work
 soupsieve==2.4.1
 spinners==0.0.24
-SQLAlchemy @ file:///C:/Windows/Temp/abs_f8661157-660b-49bb-a790-69ab9f3b8f7c8a8s2psb/croots/recipe/sqlalchemy_1657867864564/work
 sqlparse==0.4.3
-stack-data @ file:///opt/conda/conda-bld/stack_data_1646927590127/work
 tensorboard==2.11.2
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.1
@@ -116,18 +59,8 @@ tensorflow-estimator==2.11.0
 tensorflow-intel==2.11.0
 tensorflow-io-gcs-filesystem==0.31.0
 termcolor==2.3.0
-threadpoolctl @ file:///Users/ktietz/demo/mc3/conda-bld/threadpoolctl_1629802263681/work
-tornado @ file:///C:/ci/tornado_1662476985533/work
 tqdm==4.65.0
-traitlets @ file:///C:/b/abs_e5m_xjjl94/croot/traitlets_1671143896266/work
-typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1678559861143/work
 tzdata==2023.2
-urllib3 @ file:///C:/b/abs_9bcwxczrvm/croot/urllib3_1673575521331/work
-wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work
-Werkzeug @ file:///C:/b/abs_17q5kgb8bo/croot/werkzeug_1671216014857/work
-win-inet-pton @ file:///C:/ci_310/win_inet_pton_1642658466512/work
 wincertstore==0.2
 wrapt==1.15.0
-WTForms @ file:///Users/ktietz/demo/mc3/conda-bld/wtforms_1629354749392/work
 xmltodict==0.13.0
-zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1677313463193/work

@@ -1,6 +1,6 @@
 # import psycopg2 as dbl
 import MySQLdb as dbl
-from sqlalchemy import create_engine, text, engine
+from sqlalchemy import create_engine, text
 import config.settings as conf
 import pandas as pd
 
