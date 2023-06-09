@@ -14,22 +14,22 @@ class MosPub:
         # self.client.connect('localhost', 1883)
         self.client.connect(get_property('URLs', 'mqtt_sever'), int(get_property('URLs', 'mqtt_port')))
 
-    def on_connect(client, userdata, flags, rc):
+    def on_connect(self, client, userdata, flags, rc):
         if rc == 0:
             print("connected OK")
         else:
             print("Bad connection Return code : ", rc)
 
-    def on_disconnect(client, userdata, flags, rc=0):
+    def on_disconnect(self, client, userdata, flags, rc=0):
         print(str(rc))
 
-    def on_publish(client, userdata, mid):
+    def on_publish(self, client, userdata, mid):
         print("In on_pub callback mid= ", mid)
 
-    def bub_message(self, message):
+    def bub_message(self, msg):
         self.client.loop_start()
         # common topic 으로 메세지 발행
-        self.client.publish('common', json.dumps({"success": "ok"}), 1)
+        self.client.publish('common', json.dumps({"success": msg}), 1)
         self.client.loop_stop()
         # 연결 종료
         self.client.disconnect()
@@ -46,16 +46,16 @@ class MosSub:
         # self.client.connect('localhost', 1883)
         self.client.connect(get_property('URLs', 'mqtt_sever'), int(get_property('URLs', 'mqtt_port')))
 
-    def on_connect(client, userdata, flags, rc):
+    def on_connect(self, client, userdata, flags, rc):
         if rc == 0:
             print("connected OK")
         else:
             print("Bad connection Return code : ", rc)
 
-    def on_disconnect(client, userdata, flags, rc=0):
+    def on_disconnect(self, client, userdata, flags, rc=0):
         print(str(rc))
 
-    def on_subscribe(client, userdata, mid, granted_qos):
+    def on_subscribe(self, client, userdata, mid, granted_qos):
         print("subscribed: " + str(mid) + " " + str(granted_qos))
 
     def sub_message(self, message):
