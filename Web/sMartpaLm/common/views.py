@@ -5,3 +5,6 @@ from django.http import HttpResponse
 
 def index(request):
     return HttpResponse("내 손바닥 안에 똑똑한 농장입니다.")
+
+def smartpalm_index(request):
+    return render(request, 'common/sMartpaLm_index.html')
