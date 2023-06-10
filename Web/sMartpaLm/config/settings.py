@@ -34,6 +34,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_palm',
     'common',
     'django.contrib.admin',
     'django.contrib.auth',
