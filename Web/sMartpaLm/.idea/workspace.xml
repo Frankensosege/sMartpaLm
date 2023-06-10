@@ -5,7 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb4c7490-3749-4e6a-9f52-b23f9ecf1870" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/common/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/admin.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/common/sMartpaLm_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/common/sMartpaLm_index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,20 +42,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/projects/sMartpaLm/Web/sMartpaLm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "ssj__",
+    "last_opened_file_path": "C:/projects/sMartpaLm/Web/sMartpaLm/admin_palm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\projects\sMartpaLm\Web\sMartpaLm\admin_palm" />
       <recent name="C:\projects\sMartpaLm\Web\sMartpaLm" />
       <recent name="C:\projects\sMartpaLm\Web\sMartpaLm\Utilities" />
       <recent name="C:\projects\sMartpaLm\Web\sMartpaLm\templates\common" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\projects\sMartpaLm\Web\sMartpaLm\templates\admin_palm" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
