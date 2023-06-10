@@ -35,6 +35,7 @@ DEBUG = True
 
 INSTALLED_APPS = [
     'admin_palm',
+    'user_mob',
     'common',
     'django.contrib.admin',
     'django.contrib.auth',
