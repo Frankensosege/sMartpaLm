@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb4c7490-3749-4e6a-9f52-b23f9ecf1870" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/admin.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/common/sMartpaLm_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/common/sMartpaLm_index.html" afterDir="false" />
-    </list>
+    <list default="true" id="bb4c7490-3749-4e6a-9f52-b23f9ecf1870" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
