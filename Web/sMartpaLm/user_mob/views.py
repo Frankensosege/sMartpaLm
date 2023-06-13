@@ -16,7 +16,7 @@ def mqtt_mospub(request):
     if request.method == 'GET':
         message = request.GET.get('message')
         print(message)
-        pub = MosPub()
+        pub = MosPub('common')
         pub.bub_message(message)
         return JsonResponse({'result': 'success'})
     else:
