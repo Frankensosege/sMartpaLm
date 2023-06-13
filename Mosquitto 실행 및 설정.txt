@@ -1,0 +1,13 @@
+1. Mosquitto 설치
+2. mosquitto 설치경로>mosquitto.conf 마지막에 추가
+   listener 1883
+   protocol mqtt
+   allow_anonymous true
+3. MQTT broker 실행
+   mosquitto 설치경로>mosquitto -c mosquitto.conf -v
+   netstat -an 실행 해서 TCP	127.0.0.1:1883 확인
+   net start mosquitto ???
+4. 참고 command line pub, sub 실행
+   mosquitto 설치경로>mosquitto_sub -h <host 명 or IP> -t <토픽명> : sub 실행
+   mosquitto 설치경로>mosquitto_pub -h <host 명 or IP> -t <토픽명> -m "메세지": sub 실행
+
