@@ -1,0 +1,15 @@
+
+mqtt - raspberry pi 센서 데이터를 서버로 보내기 (1) window
+https://jusths.tistory.com/23
+
+병해충탐지와 식별 논문 Resnet101 ,Faster RCNN모델 객체탐지
+https://koreascience.kr/article/JAKO202007650437413.pdf
+
+라즈베리파이에 mqtt설치 sudo pip3 install paho-mqtt
+https://m.blog.naver.com/anima11x/221848344023
+
+mqtt에대해서
+https://dejavuhyo.github.io/posts/mqtt-concept/
+
+모스키토 라즈베리파이
+https://m.blog.naver.com/roboholic84/221227871374

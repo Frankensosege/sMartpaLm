@@ -1,4 +1,0 @@
-conda activate mylittleforest
-cd C:\Users\hunmi\AppData\Roaming\RabbitMQ
-NET HELPMSG 2182
-python -m pip install pika --upgrade
