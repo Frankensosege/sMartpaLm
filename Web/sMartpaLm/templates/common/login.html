@@ -1,0 +1,23 @@
+{% extends "base_palm.html" %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        {{ message.tags }}
+        {{ message.message }}
+    {% endfor %}
+{% endif %}
+<form method="post" action="{% url 'common:login' %}">
+    {% csrf_token %}
+    {% include "form_errors.html" %}
+    <div class="mb-3 mt-3">
+        <label for="email">이메일</label>
+        <input type="text" class="form-control" name="email" id="email" maxlength="150" value="{{ form.email.value|default_if_none:'' }}">
+    </div>
+    <div class="mb-3">
+        <label for="passwd">비밀번호</label>
+        <input type="password" class="form-control" name="passwd" id="passwd" maxlength="150" value="{{ form.passwd.value|default_if_none:'' }}">
+    </div>
+    <button type="submit" class="btn btn-primary">로그인</button>
+</form>
+{% endblock %}
