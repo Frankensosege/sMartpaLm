@@ -1,0 +1,13 @@
+먼저 wifi 2.4g 로연결
+비주얼스튜디오 환경에서 하려면 
+VS Code 확장프로그램 설치 VS Code 확장에서 'Remote - SSH'를 설치한다. ...
+farmer@192.168.1.174 
+1234
+로 연결하면 파일 전부접근이 가능하다.
+
+cmd 프롬프트만 사용하려면
+putty.exe실행
+HostName에 192.168.1.174
+
+가상환경 실행
+source /home/farmer/farmer/bin/activate

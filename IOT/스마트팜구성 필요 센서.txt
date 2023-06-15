@@ -1,0 +1,10 @@
+co2 db
+온도 db
+습도 db
+지습 db 
+지온 db
+관수 제어 자동 
+양액 제어
+cctv 이미지데이터 - 사진 속 물체의 길이를 알 수 있는 Smart Picture 3D, Google Project Tango 판단 잎 상태 판단 db -> 색깔로  판단해서 시들함 
+RGB
+초분광카메라- 질병 발생 예측 초분광 이미지 기반 질병 다중 분류 성능
