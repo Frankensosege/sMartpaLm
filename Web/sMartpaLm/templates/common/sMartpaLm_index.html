@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>내 손바닥 안에 똑똑한 농장 [sMartpaLm]</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}" type="text/css"/>
+        <style>
+            nav a {color:olive}
+            nav h3 {text-align: center}
+        </style>
+        <script type="text/javascript">
+
+            function showCurrentTime() {
+                var currentTime = new Date();
+                var hours = currentTime.getHours();
+                var minutes = currentTime.getMinutes();
+                var seconds = currentTime.getSeconds();
+
+                hours = (hours < 10 ? "0" : "") + hours;
+                minutes = (hours < 10 ? "0" : "") + minutes;
+                seconds = (hours < 10 ? "0" : "") + seconds;
+
+                var formattedTime = hours + ":" + minutes + ":" + seconds;
+
+                document.getElementById("currentTime").innerHTML = formattedTime;
+
+                setTimeout(showCurrentTime, 1000);
+            }
+        </script>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}" type="text/css"/>
+
+    </head>
+    <body onload="showCurrentTime()">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">sMartpaLm</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Admin</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                PalmingFarm
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Streaming</a></li>
+                <li><a class="dropdown-item" href="#">Predict</a></li>
+    <!--            <li><hr class="dropdown-divider"></li>-->
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <h3><span id="currentTime"></span></h3>
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <h1>About sMartpaLm</h1>
+                <hr/>
+                <p> 소규모 스마트 팜을 구성하여 일반 가정 또는 소규모 도시농장에 보급하고 경험이없는 농장주에게 학습된 ML을 사용하여 최적의 경작 정보를 제공하여 작물이 최상의 상태를 유지하도록 한다.
+                    그리고 어디서든 내 농장의 상태를 확인할 수 있고, 환경을 통제할 수 있도록 인터페이스를 제공한다.필요한 경우 자동으로 제어하도록 한다.</p>
+            </div>
+            <div class="col-lg-3">
+                <img src="../../static/img/test_image.jpg" class="img-fluid w-100">
+            </div>
+        </div>
+    </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    </body>
+</html>

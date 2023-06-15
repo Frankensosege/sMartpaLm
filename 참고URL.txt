@@ -1,0 +1,20 @@
+라즈베리 파이에서 REST API 사용해서 스마트폰으로 제어하기 (Use REST API in Raspberry Pi for controlling from smartphone)
+https://arsviator.blogspot.com/2019/12/rest-api-use-rest-api-in-raspberry-pi.html
+
+
+ESP 모듈 와이파이 연결 : HTTP 통신(아두이노)
+https://www.robotstory.co.kr/raspberry/?vid=35
+
+
+인공지능이 농사짓는 시대 - 농촌진흥청은 한국형 2세대 스마트팜 기술 개발로 인공지능이 농사짓는 시대를 열고 있습니다.
+https://www.nongsaro.go.kr/portal/ps/psv/psvr/psvre/curationDtl.ps?menuId=PS03352&srchCurationNo=1362&totalSearchYn=Y
+
+
+와사비
+https://m.cafe.daum.net/seed-farm/LiZp/43?listURI=%2Fseed-farm%2FLiZp
+
+MQTT 접속 테스트
+https://velog.io/@zhemdrawer/MQTT-%EC%A0%91%EC%86%8D-%ED%85%8C%EC%8A%A4%ED%8A%B8
+
+라이브 스트리밍의 전체적인 흐름 구조
+https://velog.io/@hssarah/%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%8A%A4%ED%8A%B8%EB%A6%AC%EB%B0%8D%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%B6%95

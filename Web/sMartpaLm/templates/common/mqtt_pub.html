@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MQTT Publish</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/mqttws31.min.js"></script>
+</head>
+<body>
+    <input type="text" id="messageInput" placeholder="메시지를 입력하세요">
+    <button onclick="publishMessage()">Publish</button>
+
+    <script>
+        // MQTT 브로커 정보 설정
+        var broker = {
+            hostname: 'localhost',  // MQTT 브로커의 호스트명
+            port: 8883,                    // MQTT 브로커의 포트
+            clientId: 'mqtt_pub_client',   // 클라이언트 ID
+            username: 'kang',     // 사용자명 (선택적)
+            password: '1234',     // 비밀번호 (선택적)
+            topic: 'your_topic'            // Publish할 토픽
+        };
+
+        // MQTT 클라이언트 생성
+        var client = new Paho.MQTT.Client(broker.hostname, broker.port, broker.clientId);
+
+        // MQTT 브로커와 연결
+        client.connect

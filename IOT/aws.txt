@@ -1,0 +1,60 @@
+외부 flask웹서버 접속하는법
+명령어프롬프트 관리자권한으로 실행
+cd C:\Users\hunmi\OneDrive\바탕 화면\developer\(9)프로젝트\스마트팜\sMartpaLm\IOT
+처음에 안되면 아래 명령 시행
+##
+icacls farmer.pem /inheritance:r /grant:r "%USERNAME%":(R)
+icacls farmer.pem
+##
+
+ssh -i "farmer.pem" ubuntu@ec2-13-48-129-227.eu-north-1.compute.amazonaws.com
+
+sudo su 관리자 권한으로 실행
+sudo apt update
+
+apt install python3.10-venv
+>>>일때 exit()누르면 나가짐
+
+python3 -m venv farmer farmer 가상환경 생성
+
+가상환경 실행
+
+
+source /home/ubuntu/farmer/bin/activate
+cd ~/flaskserver/
+python app.py
+deactivate
+python --version
+pip install --upgrade pip
+git clone https://github.com/kangkangjeong/flaskserver.git
+
+
+
+ssh -i "fashionAI.pem" ubuntu@ec2-16-171-4-128.eu-north-1.compute.amazonaws.com
+sftp://ubuntu@ec2-13-51-175-244.eu-north-1.compute.amazonaws.com
+IdentityFile ~/.ssh/fashionAI.pem
+
+크롬드라이버 설치
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome-archive-keyring.gpg
+
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome-archive-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+dpkg -i google-chrome-stable_current_amd64.deb
+
+sudo apt update
+sudo apt install google-chrome-stable
+google-chrome --version
+
+wget -N https://chromedriver.storage.googleapis.com/113.0.5672.63/chromedriver_linux64.zip
+
+sudo apt install unzip
+
+unzip chromedriver_linux64.zip
+sudo chmod +x /usr/bin/google-chrome
+
+외부 우분투 서버연결
+
+16.16.79.171:5000
+
+sudo su
