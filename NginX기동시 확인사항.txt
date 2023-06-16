@@ -14,7 +14,9 @@
    Change port 80 to a non-essential port like 10. We will need to utilize 80 for our Django project
 7. Open a terminal at C:/nginx/ and run nginx.exe -t to check files, and if everything is successful run nginx.exe to start the server
 8. Open a web browser and navigate to http://localhost
-9. python runserver.py
+9. webapp>config>settings.py
+   ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+10. python runserver.py
 
 start nginx //시작
 nginx -s stop //빠른 종료
