@@ -1,0 +1,11 @@
+{% extends "base_admin_palm.html" %}
+
+{block content %}
+    <h2>palm Management</h2>
+    <ul>
+        {% for modelname in model_list %}
+        { with "admin_palm: "add:modelname|lower|add:_listas urlvar %}
+        <li><a href = "{% ulr urlvar %}">({ modelname })</a></li>
+        {% endwith %}
+        {% endfor %}
+    </ul>

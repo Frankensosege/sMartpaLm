@@ -28,20 +28,16 @@ def get_menu_list(auth):
                 #  "url": "",
                 #  "submenu": []
                 #  },
-                {"name": "분석툴관리",
-                 "url": "/stkadmin/anal_tool_man/",
+                {"name": "사용자관리",
+                 "url": "/admin/",
                  "submenu": []
                  },
-                {"name": "종목관리",
-                 "url": "/stkadmin/item_admin/",
+                {"name": "모델관리",
+                 "url": "/admin/",
                  "submenu": []
                  },
-                {"name": "학습관리",
-                 "url": "/stkadmin/item_learn/",
-                 "submenu": []
-                 },
-                {"name": "재무제표",
-                 "url": "/stkadmin/item_fss/",
+                {"name": "농장관리",
+                 "url": "/admin/",
                  "submenu": []
                  }
             ]
@@ -49,21 +45,21 @@ def get_menu_list(auth):
     elif auth == 'U':
         menu_list = {'menu_items':
             [
-                {"name": "포트폴리오",
+                {"name": "내농장",
                  "url": "",
                  "submenu": [
-                     {"name": "포트폴리오구성",
-                      "url": "/investar/create_portpolio/"},
+                     {"name": "내농장목록",
+                      "url": "/admin_palm/"},
                      # {"name": "주가동향",
                      #  "url": "/investar/daily_price/"}
                  ],
                  },
 
-                {"name": "분석툴",
+                {"name": "농장제어",
                  "url": "",
                  "submenu": [
-                     {"name": "분석툴 선택",
-                      "url": "/investar/tool_man/"},
+                     {"name": "모델 선택",
+                      "url": "/admin_palm/"},
                      # {"name": "분석조회",
                      #  "url": "/investar/daily_price/"}
                  ]
