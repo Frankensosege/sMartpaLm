@@ -29,15 +29,15 @@ def get_menu_list(auth):
                 #  "submenu": []
                 #  },
                 {"name": "사용자관리",
-                 "url": "/admin/",
+                 "url": "/admin_palm/",
                  "submenu": []
                  },
                 {"name": "모델관리",
-                 "url": "/admin/",
+                 "url": "/admin_palm/",
                  "submenu": []
                  },
                 {"name": "농장관리",
-                 "url": "/admin/",
+                 "url": "/admin_palm/",
                  "submenu": []
                  }
             ]
@@ -45,25 +45,25 @@ def get_menu_list(auth):
     elif auth == 'U':
         menu_list = {'menu_items':
             [
-                {"name": "내농장",
-                 "url": "",
+                {"name": "내농장관리",
+                 "url": "/user_mob/",
                  "submenu": [
-                     {"name": "내농장목록",
-                      "url": "/admin_palm/"},
+                 #     {"name": "농장제어",
+                 #      "url": "/user_mob/"},
                      # {"name": "주가동향",
                      #  "url": "/investar/daily_price/"}
-                 ],
-                 },
-
-                {"name": "농장제어",
-                 "url": "",
-                 "submenu": [
-                     {"name": "모델 선택",
-                      "url": "/admin_palm/"},
-                     # {"name": "분석조회",
-                     #  "url": "/investar/daily_price/"}
                  ]
-                 }
+                 },
+                # #
+                # # {"name": "농장제어",
+                # #  "url": "",
+                # #  "submenu": [
+                # #      {"name": "제어",
+                # #       "url": "/user_mob/"},
+                #      # {"name": "분석조회",
+                #      #  "url": "/investar/daily_price/"}
+                #  ]
+                #  }
             ]
         }
     else:

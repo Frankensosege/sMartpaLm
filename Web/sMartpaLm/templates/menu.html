@@ -1,0 +1,40 @@
+ <script type="text/javascript">
+$(document).ready(function() {
+  $.ajax({
+    type: "GET",
+    url: "{% url 'common:menu_list' %}",
+    dataType: 'json',
+    success: function(data) {
+      // Loop through the menu items and create an <li> element for each one
+      $.each(data.menu_items, function(index, item) {
+        // If the menu item has a submenu, create a nested <ul> element for it
+
+        if (item.submenu.length > 0) {
+          var $li = $('<li class="nav-item">' + item.name + '</li>');
+          var $submenu = $('<ul class="submenu"></ul>');
+          // Loop through the submenu items and create an <li> element for each one
+          $.each(item.submenu, function(index, subitem) {
+             $submenu.append('<li class="nav-item"><a href="' + subitem.url + '" class="nav-link test-white p-3 mb-2 sidebar-link">' + subitem.name + '</a></li>');
+          });
+          $li.append($submenu);
+        } else {
+          var $li = $('<li class="nav-item"><a href="' + item.url + '" class="nav-link test-white p-3 mb-2 sidebar-link">' + item.name + '</a></li>');
+        }
+        $('#menu').append($li);
+      });
+
+      // Add a click event listener to the menu items that have a submenu
+      $('#menu li:has(".submenu") > a').click(function(e) {
+        e.preventDefault();
+        $(this).siblings('.submenu').toggle();
+      });
+    },
+    error: function(request, status, error) {
+      alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+    }
+  });
+});
+
+  </script>
+
+      <ul id="menu" class="nav"></ul>

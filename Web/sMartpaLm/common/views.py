@@ -6,13 +6,9 @@ from Utilities.comUtilities import get_menu_list
 from .forms import UserForm, UserCreationForm
 # Create your views here.
 
-def smartpalm_index(request):
-    return render(request, 'base.html')
-
-# Create your views here.
 def index(request):
     # render the login page
-    return render(request, 'common/sMartpaLm_index.html')
+    return render(request, 'base.html')
 
 # views.py
 def menu_list(request):
