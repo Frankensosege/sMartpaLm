@@ -3,52 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, user-scalable=no, initial-scale=1.0, shrink-to-fit=no, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel = "stylesheet" href="../../static/css/container.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>{% block title %} sMartpaLm {% endblock %}</title>
-    <script type="text/javascript">
+<!--    <script type="text/javascript">-->
 
-            function showCurrentTime() {
-                var currentTime = new Date();
-                var hours = currentTime.getHours();
-                var minutes = currentTime.getMinutes();
-                var seconds = currentTime.getSeconds();
+<!--            function showCurrentTime() {-->
+<!--                var currentTime = new Date();-->
+<!--                var hours = currentTime.getHours();-->
+<!--                var minutes = currentTime.getMinutes();-->
+<!--                var seconds = currentTime.getSeconds();-->
 
-                hours = (hours < 10 ? "0" : "") + hours;
-                minutes = (hours < 10 ? "0" : "") + minutes;
-                seconds = (hours < 10 ? "0" : "") + seconds;
+<!--                hours = (hours < 10 ? "0" : "") + hours;-->
+<!--                minutes = (minutes < 10 ? "0" : "") + minutes;-->
+<!--                seconds = (seconds < 10 ? "0" : "") + seconds;-->
 
-                var formattedTime = hours + ":" + minutes + ":" + seconds;
+<!--                var formattedTime = hours + ":" + minutes + ":" + seconds;-->
 
-                document.getElementById("currentTime").innerHTML = formattedTime;
+<!--                document.getElementById("currentTime").innerHTML = formattedTime;-->
 
-                setTimeout(showCurrentTime, 1000);
+<!--                setTimeout(showCurrentTime, 1000);-->
+<!--            }-->
+<!--        </script>-->
+        <style>
+            .container-fluid {
+              font-family: arial;
+              font-size: 16px;
+              margin: 5%;
+              width: 90%;
+              height: 0%;
+              /* 설정 */
+              position: relative;
+            }5
+\
+            \\\\
+            .navbar {
+              height : 50px;
+              margin: 0%;
+              width: 100%;
             }
-        </script>
+        </style>
 </head>
-<body onload="showCurrentTime()">
-<h1><a href="#">sMartpaLm</a> </h1>
-    <div class="d-flex p-2">
+<!--<body onload="showCurrentTime()">-->
+<body>
 
-        <div class="row">
+    <header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
+        <div class="container-fluid">
 
-            <div class="col">
-
-                    <div id = "content">
-                            {% block content %} {% endblock %}
+                <div class="container">
+                    <div class="row">
+                        {% include "navbar.html" %}
                     </div>
-                </div>
-
+                 </div>
+            </div>
         </div>
+
+    </header>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+                <div class="col-3">
+        <!--                <h4><span id="currentTime"></span></h4>-->
+
+                <a class="navbar-brand" href="{% url 'common:login' %}">
+                <!--        <img src="../../staticfiles/img/test_image.jpg" alt="Logo" width="35" height="40">-->
+                    <span style = "font: italic bold 1.3em/1em Georgia, serif;  color: #7b68ee;">sMartpaLm</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                         </button>
+                    </div>
+            </div>
+        <div class="row flex-nowrap">
+<!--            <div class="col-3 bd-sidebar">-->
+<!--                &lt;!&ndash; 사이드메뉴 &ndash;&gt;-->
+<!--                {% include "menu.html" %}-->
+<!--                <br>-->
+<!--            </div>-->
+             <div class="d-flex p-2">
+                <div id = "content">
+                    {% block content %} {% endblock %}
+                </div>
+            </div>
+        </div>
+
     </div>
-
- <div class="fixed-bottom"><h4><span id="currentTime"></span></h4></div>
-
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </html>
