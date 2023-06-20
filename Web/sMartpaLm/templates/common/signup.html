@@ -1,47 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        {{ message.tags }}
+        {{ message.message }}
+    {% endfor %}
+{% endif %}
+<h3>회원가입</h3>
 <div class="container">
-    <form class="row g-3">
+    <form method="POST" action="{% url 'common:signup' %}">
+      {% csrf_token %}
       <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">이메일</label>
-        <input type="text" class="form-control" id="inputEmail4">
-      </div>
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">비밀번호</label>
-        <input type="password" class="form-control" id="inputPassword4">
-      </div>
-      <div class="col-12">
-        <label for="inputAddress" class="form-label">주소</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-      </div>
-      <div class="col-12">
-        <label for="inputAddress2" class="form-label">주소상세</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        <label for="email" class="form-label">이메일</label>
+        <input type="text" class="form-control" id="email" placeholder="이메일 주소" name="email">
       </div>
       <div class="col-md-6">
-        <label for="inputCity" class="form-label">시군구</label>
-        <input type="text" class="form-control" id="inputCity">
+        <label for="password1" class="form-label">비밀번호</label>
+        <input type="password" class="form-control" id="password1" placeholder="비밀번호" name="password1">
       </div>
-      <div class="col-md-4">
-        <label for="inputState" class="form-label">광역시도</label>
-        <select id="inputState" class="form-select">
-          <option selected>Choose...</option>
-          <option>...</option>
-        </select>
+      <div class="col-md-6">
+        <label for="password2" class="form-label">비밀번호 확인</label>
+        <input type="password" class="form-control" id="password2" placeholder="비밀번호 확인" name="password2">
       </div>
-      <div class="col-md-2">
-        <label for="inputZip" class="form-label">Zip</label>
-        <input type="text" class="form-control" id="inputZip">
-      </div>
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck">
-          <label class="form-check-label" for="gridCheck">
-            Check me out
-          </label>
-        </div>
-      </div>
+      <br>
       <div class="col-12">
         <button type="submit" class="btn btn-primary">가입</button>
       </div>

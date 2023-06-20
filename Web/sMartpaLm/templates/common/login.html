@@ -7,28 +7,25 @@
         {{ message.message }}
     {% endfor %}
 {% endif %}
+
   <div class="container-fluid">
 
-<form method="post" action="{% url 'common:login' %}">
-  {% csrf_token %}
-  {% include "form_errors.html" %}
+    <form method="POST" action="{% url 'common:login' %}">
+      {% csrf_token %}
+      {% include "form_errors.html" %}
 
-  <div class="mb-3">
-    <h2>Login</h2><br>
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="text" class="form-control" name ="email" id="exampleInputEmail1" maxlength="150" aria-describedby="emailHelp" value="{{ form.email.value|default_if_none:'' }}">
-        <div id="emailHelp" class="form-text">이메일 로그인</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" name="passwd" id="exampleInputPassword1" maxlength="150" value="{{ form.passwd.value|default_if_none:'' }}">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">login</button>
+      <div class="mb-3">
+        <h2>Login</h2><br>
+        <label for="email" class="form-label">Email address</label>
+            <input type="text" class="form-control" id="email" name ="email" maxlength="150" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">이메일 로그인</div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" maxlength="150">
+      </div>
+      <button type="submit" class="btn btn-primary" value="로그인">login</button>
 
-</form>
+    </form>
     </div>
 {% endblock content %}

@@ -1,4 +1,3 @@
-
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
 from .models import User, UserManager
@@ -7,15 +6,15 @@ from .models import User, UserManager
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['email', 'user_name', 'password']
+        fields = ('email', 'username', 'password')
         widgets = {
             'email': forms.TextInput(attrs={'class': 'form-control'}),
-            'user_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
             'password': forms.TextInput(attrs={'class': 'form-control'}),
         }
         labels = {
             'email': '이메일',
-            'user_name': '표시명',
+            'username': '표시명',
             'password': '비밀번호',
         }
 # class UsrCreationForm(UserCreationForm):
@@ -31,17 +30,18 @@ class UserCreationForm(forms.ModelForm):
             }
         )
     )
-    user_name = forms.CharField(
-        label='사용자명',
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': '사용자명',
-                'required': 'True',
-            }
-        )
-    )
+
+    # username = forms.CharField(
+    #     label='사용자명',
+    #     required=True,
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'class': 'form-control',
+    #             'placeholder': '사용자명',
+    #             'required': 'True',
+    #         }
+    #     )
+    # )
 
     password1 = forms.CharField(
         label='비밀번호',
@@ -63,9 +63,10 @@ class UserCreationForm(forms.ModelForm):
             }
         )
     )
+
     class Meta:
         model = User
-        fields = ("user_name", "password1", "password2", "email")
+        fields = ("email", "password1", "password2")
 
     def clean_password2(self):
         # 두 비밀번호 입력 일치 확인
@@ -92,7 +93,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'user_name', 'is_active', 'is_superuser')
+        fields = ('email', 'password', 'username', 'is_active', 'is_superuser')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.

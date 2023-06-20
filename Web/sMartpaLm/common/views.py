@@ -4,12 +4,18 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from Utilities.comUtilities import get_menu_list
 from .forms import UserForm, UserCreationForm
+from admin_palm.views import index as adpalm
+
+
 # Create your views here.
 
 def index(request):
-    # render the login page
-    return render(request, 'base.html')
-
+    if request.session['auth'] == 'A':
+        return adpalm(request)
+    elif request.session['auth'] == 'U':
+        return render(request, 'common/sMartpaLm_index.html')
+    else:
+        return render(request, 'common/login.html')
 # views.py
 def menu_list(request):
     auth = request.session.get('auth')
@@ -20,30 +26,30 @@ def menu_list(request):
 
     return HttpResponse(menu_json, content_type="application/json")
 
+
 def login_sys(request):
     error = None
     if request.method == 'POST':
         email = request.POST.get('email')
-        passwd = request.POST.get('passwd')
-
-        user = authenticate(email=email, password=passwd)
+        password = request.POST.get('password')
+        user = authenticate(email=email, password=password)
 
         if user is not None:
             login(request, user=user)
             # redirect the user to the home page
             request.session['email'] = user.email
             request.session['id'] = user.id
+            username = user.username
+            if username is None or username == "":
+                username = user.email
+            request.session['username'] = username
             if user.is_superuser or user.is_staff:
                 request.session['auth'] = 'A'
+                return render(request, 'admin_palm/palm.html', {'user': user})
             else:
                 request.session['auth'] = 'U'
-            # redirect_to = reverse('login:welcome', kwargs={'name':user.user_name})
-            user_name = user.user_name
-            if user_name is None or user_name == "":
-                user_name = user.email
-            request.session['user_name'] = user_name
-
-            return render(request, 'common/sMartpaLm_index.html', {'user': user})
+                return render(request, 'common/sMartpaLm_index.html', {'user': user})
+            # redirect_to = reverse('login:welcome', kwargs={'name':user.username})
         else:
             # display an error message
             messages.error(request, '유효한 사용자가 아닙니다.')
@@ -59,19 +65,20 @@ def logout_sys(request):
     if request.session.get('email'):
         del(request.session['email'])
         del(request.session['auth'])
-        del(request.session['user_name'])
-    return render(request, 'common/sMartpaLm_index.html')
+        del(request.session['username'])
+    return render(request, 'common/login.html')
 
 def signup(request):
     if request.method == "POST":
+        print(request.POST)
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
-
-            form = UserForm()
-            return render(request, 'common/login.html', {'form': form})
+            user = authenticate(email=email, password=raw_password)
+            # login(request, user)
+            return render(request, 'common/sMartpaLm_index.html')
     else:
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
