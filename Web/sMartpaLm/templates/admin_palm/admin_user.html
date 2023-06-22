@@ -1,0 +1,18 @@
+{% extends "palm_base.html" %}
+
+{% load static %}
+
+{% block user %}
+
+
+    <table>-->
+      {% for item in user_list %}
+        <tr>
+            <td>{{ item.email }}</td>
+            <td>{{ item.is_superuser }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+
+
+{% endblock %}

@@ -53,7 +53,7 @@ def index(request):
     return HttpResponse("농장관리자 페이지")
 
 class palm_view(TemplateView):
-    template_name = 'admin_palm/palm.html'
+    template_name = 'admin_palm/palm_base.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['model_list'] = ['userPalms']
