@@ -23,7 +23,6 @@ class UserManager(BaseUserManager):
         user.is_active = True
         user.is_superuser = True
         user.save(using=self._db)
-
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -65,3 +64,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_superuser
+
+class FarmManager(models.Manager):
+    pass
+    # def get_queryset(self, farm_name):
+    #     return super(FarmManager, self).get_queryset().filter(farm__farmmname=farm_name)
+
+class Farm(models.Model):
+    # username = models.ForeignKey(User, null=True)
+    # farmname = models.CharField(max_length=45)
+    pass

@@ -1,21 +1,26 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from Utilities.comUtilities import get_menu_list
 from .forms import UserForm, UserCreationForm
-from admin_palm.views import index as adpalm
+from admin_palm.views import admin_veiw as adpalm
 
 
 # Create your views here.
 
 def index(request):
-    if request.session['auth'] == 'A':
-        return adpalm(request)
-    elif request.session['auth'] == 'U':
-        return render(request, 'common/sMartpaLm_index.html')
+    auth = request.session.get('auth')
+    if not auth:
+        if auth == 'A':
+            return adpalm(request)
+        elif auth == 'U':
+            return render(request, 'common/sMartpaLm_index.html')
+        else:
+            return render(request, 'common/login.html')
     else:
         return render(request, 'common/login.html')
+
 # views.py
 def menu_list(request):
     auth = request.session.get('auth')
@@ -45,7 +50,8 @@ def login_sys(request):
             request.session['username'] = username
             if user.is_superuser or user.is_staff:
                 request.session['auth'] = 'A'
-                return render(request, 'admin_palm/palm.html', {'user': user})
+                user_format = {'user' : user}
+                return redirect('admin_palm:admin_palm'.format(user_format))
             else:
                 request.session['auth'] = 'U'
                 return render(request, 'common/sMartpaLm_index.html', {'user': user})
