@@ -74,7 +74,7 @@ def logout_sys(request):
         del(request.session['username'])
     return render(request, 'common/login.html')
 
-def signup(request):
+def signup(request, email):
     if request.method == "POST":
         print(request.POST)
         form = UserCreationForm(request.POST)
@@ -83,7 +83,7 @@ def signup(request):
             email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(email=email, password=raw_password)
-            # login(request, user)
+            login(request, user)
             return render(request, 'common/sMartpaLm_index.html')
     else:
         form = UserForm()
