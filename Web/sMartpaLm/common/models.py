@@ -66,6 +66,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
 class FarmManager(models.Manager):
+
+    # def create_farm(self, name, **extra_fields):
+    #     """일반 유저로 생성할 경우"""
+    #     if not email:
+    #         raise ValueError('이메일을 입력해주세요')
+    #
+    #     user = self.model(email=self.normalize_email(email), username=username, **extra_fields)
+    #     user.set_password(password)
+    #     user.is_active = True
+    #     user.save(using=self._db)
+    #
+    #     return user
     pass
     # def get_queryset(self, farm_name):
     #     return super(FarmManager, self).get_queryset().filter(farm__farmmname=farm_name)

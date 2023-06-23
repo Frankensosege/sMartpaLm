@@ -74,7 +74,7 @@ def logout_sys(request):
         del(request.session['username'])
     return render(request, 'common/login.html')
 
-def signup(request, email):
+def signup(request):
     if request.method == "POST":
         print(request.POST)
         form = UserCreationForm(request.POST)
