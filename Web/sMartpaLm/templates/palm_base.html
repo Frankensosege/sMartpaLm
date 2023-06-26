@@ -48,6 +48,9 @@
         }
     </script>
         <style>
+            * {
+            position:relative;
+            }
             .container-fluid {
               font-family: arial;
               font-size: 12px;
@@ -95,18 +98,30 @@
               /* 높이를 정해줘야지만 transition이 적용됨 */
               height: 300px;
             }
+            table {
+            }
         </style>
+<!--    <script>-->
+<!--        $(function() {-->
+<!--            $("#aduser").click(function() {-->
+<!--                var txt = $(this).text();-->
+<!--                alert(txt);-->
+<!--            });-->
+<!--        });-->
+
+<!--    </script>-->
 </head>
 <!--<body onload="showCurrentTime()">-->
 <body>
 <header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
     {% include "navbar.html" %}
 </header>
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <h2 style="text-align: center; padding-top: 10px;">
       AdminPalm
     </h2>
+      <p>{% if modified %}{{ modified }}{% endif %}</p>
   </div>
     <br>
     <table class="table table-bordered table-striped table-dark table-hover">
@@ -119,9 +134,13 @@
         <tr>
           <td class="text-left" width="50%">
             <div class="panel-palm-container">
-              <p class="panel-palm-title">사용자 관리</p>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col"><p class="panel-palm-title">사용자 관리</p></div>
+                    <div class="col"></div>
+                </div>
               <div class="panel-palm-answer">
-                  {% include "admin_palm/admin_user.html" %}
+                      {% include "admin_palm/admin_user.html" %}
                 </p>
             </div>
           </div>

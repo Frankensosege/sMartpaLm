@@ -5,10 +5,7 @@ class AdminUserForm(forms.ModelForm):
         model = User
         fields = ('is_active', 'is_superuser')
         widgets = {
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-control'}),
-            'is_superuser': forms.CheckboxInput(attrs={'class': 'form-control'}),
-        }
-        labels = {
-            'is_active': '사용자권한',
-            'is_superuser': '관리자권한',
+            'email': forms.TextInput(attrs={'class': 'form-control-text'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'is_superuser': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
