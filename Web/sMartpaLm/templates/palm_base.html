@@ -96,7 +96,7 @@
             .active {
               display: block;
               /* 높이를 정해줘야지만 transition이 적용됨 */
-              height: 300px;
+              height: 500px;
             }
             table {
             }
@@ -127,20 +127,20 @@
     <table class="table table-bordered table-striped table-dark table-hover">
       <thead class="thead-light text-center">
         <tr>
-          <th>관리 목록</th>
+          <th>내농장</th>
         </tr>
       </thead>
       <tbody class="text-center">
         <tr>
-          <td class="text-left" width="50%">
-            <div class="panel-palm-container">
+          <td class="text-left">
+            <div class="panel-palm-container" style="width:100%;">
                 <div class="row">
                     <div class="col"></div>
                     <div class="col"><p class="panel-palm-title">사용자 관리</p></div>
                     <div class="col"></div>
                 </div>
               <div class="panel-palm-answer">
-                      {% include "admin_palm/admin_user.html" %}
+                  {% include "user_mob/user_palm.html" %}
                 </p>
             </div>
           </div>
@@ -149,10 +149,12 @@
         <tr>
           <td class="text-left" width="50%">
             <div class="panel-palm-container">
-              <p class="panel-palm-title">사용자 관리</p>
+              <p class="panel-palm-title">농장 관리</p>
               <div class="panel-palm-answer">
                 <div class="container-fluid">
-                  {% include "admin_palm/admin_user.html" %}
+
+                  {% include "admin_palm/admin_farm.html" %}
+
                  </div>
                 </p>
             </div>

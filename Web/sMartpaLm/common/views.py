@@ -5,33 +5,21 @@ from django.http import HttpResponse
 from Utilities.comUtilities import get_menu_list
 from .forms import UserForm, UserCreationForm
 from admin_palm.views import admin_veiw as adpalm
+from user_mob.views import palm_view
 
 
 # Create your views here.
 
 def index(request):
-    auth = request.session.get('auth')
-    if not auth:
-        if auth == 'A':
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
             return adpalm(request)
-        elif auth == 'U':
-            return render(request, 'common/sMartpaLm_index.html')
         else:
-            return render(request, 'common/login.html')
+            return render(request, 'common/sMartpaLm_index.html')
     else:
-        return render(request, 'common/login.html')
+        return redirect(request, 'common:login')
 
 # views.py
-def menu_list(request):
-    auth = request.session.get('auth')
-    if not request.user.is_authenticated:
-        auth = 'X'
-
-    menu_json = get_menu_list(auth)
-
-    return HttpResponse(menu_json, content_type="application/json")
-
-
 def login_sys(request):
     error = None
     if request.method == 'POST':
@@ -83,8 +71,9 @@ def signup(request):
             email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(email=email, password=raw_password)
+
             login(request, user)
-            return render(request, 'common/sMartpaLm_index.html')
+            return index(request)
     else:
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})

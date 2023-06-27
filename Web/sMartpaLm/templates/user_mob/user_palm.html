@@ -1,0 +1,84 @@
+{% load static %}
+
+{% if messages %}
+    {% for message in messages %}
+        {{ message.tags }}
+        {{ message.message }}
+    {% endfor %}
+{% endif %}
+
+<style>
+    .form-check-input {
+    margin:0.5em;
+    }
+    .mydiv {
+    height:300px;
+    overflow:scroll;
+    }
+</style>
+
+<div class="mydiv">
+<div class="container-fluid">
+    <div class="mb-3 row">
+        <div class="col-sm-10">
+            <img src="http://192.168.1.174:8090/?action=stream" style="width:100%;">
+<!--        <table style="border: 1px solid gray; font-size: 12px;">-->
+<!--            <thead style="border: 1px solid gray;">-->
+<!--                <tr style="border: 1px solid gray;">-->
+<!--                    <th style="border: 1px solid gray;">id</th>-->
+<!--                    <th style="border: 1px solid gray;">email</th>-->
+<!--                    <th style="border: 1px solid gray;">farmer</th>-->
+<!--                    <th style="border: 1px solid gray;">admin</th>-->
+<!--                </tr>-->
+<!--            </thead>-->
+<!--            <tbody style="border: 1px solid gray;">-->
+<!--                {% if user_list %}-->
+<!--                    {% for user in user_list %}-->
+<!--                      <tr style="border: 1px solid gray;">-->
+<!--                          <form method="POST" action="{% url 'admin_palm:admin_user' %}" data-pk="{{ user.email }}">-->
+<!--                              {% csrf_token %}-->
+<!--                                {% include "form_errors.html" %}-->
+
+<!--                              <td style="border: 1px solid gray;">{{ user.id }}</td>-->
+<!--                              <td style="border: 1px solid gray;">-->
+<!--                                  <div class="row">-->
+<!--                                    <label for="staticEmail" class="col-sm-2 col-form-label">{{ user.email }}</label>-->
+<!--                                    <div class="col">-->
+<!--                                      <input type="text" readonly class="form-control-text" id="staticEmail" value="{{ user.email }}" name="email" autocomplete="email" hidden>-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                              </td>-->
+<!--                              <td style="border: 1px solid gray;">-->
+<!--                                  <div class="form-check form-switch">-->
+<!--                                      <input class="form-check-input" id = "is_active" type="checkbox" role="switch" id="is_active" {% if user.is_active %}checked{% endif %} name="is_active">-->
+<!--                                      <label for="is_active" class="form-check-label" ></label>-->
+<!--                                  </div>-->
+<!--                              </td>-->
+<!--                              <td style="border: 1px solid gray;">-->
+<!--                                  <div class="form-check form-switch">-->
+<!--                                      <input class="form-check-input" id = "is_superuser" type="checkbox" role="switch" id="is_superuser" {% if user.is_superuser %}checked{% endif %} name="is_superuser">-->
+<!--                                      <label for="is_superuser" class="form-check-label"></label>-->
+<!--                                  </div>-->
+<!--                              </td>-->
+<!--                              <td style="border: 1px solid gray;">-->
+<!--                                 <button style="font-size: 10px;" id="aduser" type="submit">ok</button>-->
+<!--                              </td>-->
+<!--                          </form>-->
+<!--                      </tr>-->
+<!--                    {% endfor %}-->
+<!--                    {% endif %}-->
+<!--                </tbody>-->
+<!--            </table>-->
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+

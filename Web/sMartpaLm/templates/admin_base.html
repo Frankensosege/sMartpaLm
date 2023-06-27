@@ -48,6 +48,9 @@
         }
     </script>
         <style>
+            * {
+            position:relative;
+            }
             .container-fluid {
               font-family: arial;
               font-size: 12px;
@@ -95,19 +98,30 @@
               /* 높이를 정해줘야지만 transition이 적용됨 */
               height: 300px;
             }
+            table {
+            }
         </style>
+<!--    <script>-->
+<!--        $(function() {-->
+<!--            $("#aduser").click(function() {-->
+<!--                var txt = $(this).text();-->
+<!--                alert(txt);-->
+<!--            });-->
+<!--        });-->
+
+<!--    </script>-->
 </head>
 <!--<body onload="showCurrentTime()">-->
 <body>
 <header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
     {% include "navbar.html" %}
 </header>
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <h2 style="text-align: center; padding-top: 10px;">
       AdminPalm
     </h2>
-    <button id="btn-all-close">접기</button>
+      <p>{% if modified %}{{ modified }}{% endif %}</p>
   </div>
     <br>
     <table class="table table-bordered table-striped table-dark table-hover">
@@ -118,12 +132,28 @@
       </thead>
       <tbody class="text-center">
         <tr>
+          <td class="text-left">
+            <div class="panel-palm-container" style="width:100%;">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col"><p class="panel-palm-title">사용자 관리</p></div>
+                    <div class="col"></div>
+                </div>
+                  {% include "admin_palm/admin_user.html" %}
+                </p>
+            </div>
+          </div>
+          </td>
+        </tr>
+        <tr>
           <td class="text-left" width="50%">
             <div class="panel-palm-container">
-              <p class="panel-palm-title">사용자 관리</p>
+              <p class="panel-palm-title">농장 관리</p>
               <div class="panel-palm-answer">
                 <div class="container-fluid">
-                  {% include "admin_palm/admin_user.html" %}
+
+                  {% include "admin_palm/admin_farm.html" %}
+
                  </div>
                 </p>
             </div>
@@ -144,98 +174,11 @@
           </td>
         </tr>
         <tr>
-          <td class="text-left" width="50%">
-            <div class="panel-palm-container">
-              <p class="panel-palm-title">사용자 관리</p>
-              <div class="panel-palm-answer">
-                <div class="container-fluid">
-                  {% include "admin_palm/admin_user.html" %}
-                 </div>
-                </p>
-            </div>
-          </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-left" width="50%">
-            <div class="panel-palm-container">
-              <p class="panel-palm-title">사용자 관리</p>
-              <div class="panel-palm-answer">
-                <div class="container-fluid">
-                  {% include "admin_palm/admin_user.html" %}
-                 </div>
-                </p>
-            </div>
-          </div>
-          </td>
-        </tr>
-        <tr>
-      <td class="text-left" width="50%">
-        <div class="panel-palm-container">
-          <p class="panel-palm-title">Where does it come from?</p>
-          <div class="panel-palm-answer">
-            <p>Answer (2) ... ↓</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-              et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-              dolore eu fugiat nulla pariatur.</p>
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-              laborum.</p>
-          </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="text-left" width="50%">
-        <div class="panel-palm-container">
-          <p class="panel-palm-title">Why do we use it?</p>
-          <div class="panel-palm-answer">
-            <p>Answer (3) ... ↓</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-              et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-              dolore eu fugiat nulla pariatur.</p>
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-              laborum.</p>
-          </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="text-left" width="50%">
-        <div class="panel-palm-container">
-          <p class="panel-palm-title">Where can I get some?</p>
-          <div class="panel-palm-answer">
-            <p>Answer (4) ... ↓</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-              et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-              dolore eu fugiat nulla pariatur.</p>
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-              laborum.</p>
-          </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="text-left" width="50%">
-        <div class="panel-palm-container">
-          <p class="panel-palm-title">The standard Lorem Ipsum passage, used since the 1500s</p>
-          <div class="panel-palm-answer">
-            <p>Answer (5) ... ↓</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-              et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-              dolore eu fugiat nulla pariatur.</p>
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-              laborum.</p>
-          </div>
-        </div>
-      </td>
-    </tr>
   </tbody>
     </table>
+  <button id="btn-all-close">접기</button>
   </div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </html>
