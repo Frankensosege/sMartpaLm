@@ -1,0 +1,77 @@
+NGINX 설정
+
+nginx 실행
+sudo service nginx start
+sudo service nginx status  확인
+
+1. sudo apt-get install nginx (nginx설치)
+2. /etc/nginx/sites-available/장고프로젝트 이름.conf 생성 후
+server {
+    listen 80;
+    server_name <IP주소>;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://<IP주소>:8000;
+
+    }
+}
+입력
+이는 클라이언트가 IP주소.80으로 요청을 보내면 http://<IP주소>:8000;으로, 즉 구니콘으로 연결되어 요청이 처리된다는 의미이다.
+
+* 참고로 enable , available 모두 동일한 내용의 파일을 요구하니 꼭 실수없이 둘다 작성해야함.
+
+# available에 작성한 파일 enable에 링크하는법
+sudo ln -s /etc/nginx/sites-available/프로젝트 /etc/nginx/sites-enabled
+
+3. 문법 검사절차
+sudo nginx -t 
+
+
+4. nginx 재시작
+sudo systemctl restart nginx
+
+
+gunicorn 연결방법
+
+1. 실행 확인
+gunicorn --bind 0:8000 앱이름:wsgi:application
+질문점: port와 socket의 차이는? 왜 unix socket이 더빠른가?
+       aws같은 경우엔 port를 열어주면 인식을 못함. but unix socket을 열어주면 인식함
+
+2. gunicorn service 등록하기
+
+# vi /etc/systemd/system/gunicorn.service 파일 생성
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/sMartpaLm/Web/sMartpaLm
+ExecStart=/home/ubuntu/smartfarm/bin/gunicorn \
+        --workers 1 \
+        --bind 0:8000 \
+        config.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+/home/ygl/smartfarm/bin/gunicorn
+입력
+
+3. 재시작
+sudo systemctl daemon-reload
+
+4. 서비스 실행, 등록
+sudo systemctl start gunicorn
+sudo systemctl enable gunicorn
+
+중지는 stop, 재시작 restart 상태확인 status
+
+
+
+혹시모르면 
+https://windybay.net/post/12/ 사이트 재참조하시길
+
