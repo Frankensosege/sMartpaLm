@@ -1,5 +1,23 @@
 {% load static %}
 
+{% if messages %}
+    {% for message in messages %}
+        {{ message.tags }}
+        {{ message.message }}
+    {% endfor %}
+{% endif %}
+
+<style>
+    .form-check-input {
+    margin:0.5em;
+    }
+    .mydiv {
+    height:300px;
+    overflow:scroll;
+    }
+</style>
+
+<div class="mydiv">
 <div class="container-fluid">
     <div class="mb-3 row">
         <div class="col-sm-10">
@@ -16,7 +34,7 @@
                 {% if user_list %}
                     {% for user in user_list %}
                       <tr style="border: 1px solid gray;">
-                          <form method="POST" action="{% url 'admin_palm:admin_user' %}">
+                          <form method="POST" action="{% url 'admin_palm:admin_user' %}" data-pk="{{ user.email }}">
                               {% csrf_token %}
                                 {% include "form_errors.html" %}
 
@@ -25,20 +43,20 @@
                                   <div class="row">
                                     <label for="staticEmail" class="col-sm-2 col-form-label">{{ user.email }}</label>
                                     <div class="col">
-                                      <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ user.email }}" name="email" hidden>
+                                      <input type="text" readonly class="form-control-text" id="staticEmail" value="{{ user.email }}" name="email" autocomplete="email" hidden>
                                     </div>
                                   </div>
                               </td>
                               <td style="border: 1px solid gray;">
                                   <div class="form-check form-switch">
-                                      <input class="form-check-input" type="checkbox" role="switch" id="is_active" {% if user.is_active %}checked{% endif %} name="is_active">
-                                      <label for="is_active" class="form-check-label" for="is_active"></label>
+                                      <input class="form-check-input" id = "is_active" type="checkbox" role="switch" id="is_active" {% if user.is_active %}checked{% endif %} name="is_active">
+                                      <label for="is_active" class="form-check-label" ></label>
                                   </div>
                               </td>
                               <td style="border: 1px solid gray;">
                                   <div class="form-check form-switch">
-                                      <input class="form-check-input" type="checkbox" role="switch" id="is_superuser" {% if user.is_superuser %}checked{% endif %} name="is_superuser">
-                                      <label for="is_superuser" class="form-check-label" for="is_superuser"></label>
+                                      <input class="form-check-input" id = "is_superuser" type="checkbox" role="switch" id="is_superuser" {% if user.is_superuser %}checked{% endif %} name="is_superuser">
+                                      <label for="is_superuser" class="form-check-label"></label>
                                   </div>
                               </td>
                               <td style="border: 1px solid gray;">
@@ -53,7 +71,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 
 

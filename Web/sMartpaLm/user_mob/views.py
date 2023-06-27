@@ -2,9 +2,9 @@ from django.shortcuts import render
 from Utilities.mqtt_message import MosPub, MosSub
 from django.http import JsonResponse
 from django.http import HttpResponse
-from .models import userPalms
-from  django.views.generic.base import TemplateView
-from  django.views.generic import ListView, DetailView
+from common.models import Farm, FarmPlant, Disease, SensorData
+from django.views.generic.base import TemplateView
+from django.views.generic import ListView, DetailView
 
 import config.settings as set
 
@@ -52,14 +52,24 @@ def mqtt_disconnect(request):
 def index(request):
     return HttpResponse("농장관리자 페이지")
 
-class palm_view(TemplateView):
-    template_name = 'admin_palm/palm_base.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['model_list'] = ['userPalms']
-        return context
-class palm_list(ListView):
-    model = userPalms
 
-class palm(DetailView):
-    model = userPalms
+def palm_view(request, context=None):
+    user = request.user
+    palm_farms = Farm.objects.filter(user_id=user.id)
+    farm_list = list(palm_farms)
+    palm_context = {}
+    for farm in farm_list:
+        palm_values = FarmPlant.objects.filter(id=farm.id)
+        if palm_values:
+            palm_list = list(palm_values)
+            palm_context[Farm.name] = palm_list
+    print(palm_context)
+    if not context:
+        context = {
+            'farm_list': farm_list,
+            'palm_context': palm_context
+        }
+    else:
+        context['farm_list'] = farm_list
+        context['palm_context'] = palm_context
+    return render(request, 'palm_base.html', context)
