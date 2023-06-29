@@ -278,7 +278,7 @@ def refresh_img(userId, farmId):
     topic = userId + '/' + farmId + '/refresh/'
     bub_message(topic, 'refresh')
 
-    
+
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
         print('on_connect called!!!!!!!!')
@@ -392,6 +392,12 @@ class mos_subscriber:
             image_folder = get_property('DATA', 'base_dir') + get_property('DATA', 'imgpath')
             usr_id, farm_no, command = msg.topic.split('/')
             try:
+                if not os.path.exists(get_property('DATA', 'base_dir')):
+                    os.makedirs(get_property('DATA', 'base_dir'))
+
+                if not os.path.exists(get_property('DATA', 'base_dir') + get_property('DATA', 'imgpath')):
+                    os.makedirs(get_property('DATA', 'base_dir') + get_property('DATA', 'imgpath'))
+
                 if command in "refresh":
                     # refresh topic인 경우
                     image_data = msg.payload
