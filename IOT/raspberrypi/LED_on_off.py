@@ -26,7 +26,6 @@ def on_message(client, userdata, msg):
     elif message == "off":
             turn_off_led()
 
-
 def turn_on_led():
     GPIO.output(LED_PIN, GPIO.HIGH)
     print("LED 켜짐")
