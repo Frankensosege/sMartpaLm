@@ -385,7 +385,7 @@ class mos_subscriber:
                     # refresh topic인 경우
                     image_data = msg.payload
                     image = Image.open(io.BytesIO(image_data))
-                    filename = os.path.join(image_folder, "refresh.jpg")
+                    filename = os.path.join(image_folder, usr_id + '_' + farm_no + "_refresh.jpg")
 
                 elif command == "image":
                     # 기타 topic인 경우
@@ -395,7 +395,7 @@ class mos_subscriber:
 
                     # 현재 시간을 파일명에 포함하여 이미지를 파일로 저장
                     current_time = datetime.now().strftime("%Y-%m-%d %H-%M")
-                    filename = os.path.join(image_folder, "{}.jpg".format(current_time))
+                    filename = os.path.join(image_folder, f"{usr_id}_{farm_no}_{current_time}.jpg")
 
                 image.save(filename)
                 print("Received and saved image: " + filename)
