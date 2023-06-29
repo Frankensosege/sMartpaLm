@@ -268,6 +268,17 @@ def on_led(userId, farmid):
     topic = userId + '/' + farmid + '/LED/'
     bub_message(topic, 'on')
 
+def refresh_img(userId, farmId):
+    image_folder = get_property('DATA', 'base_dir') + get_property('DATA', 'imgpath')
+    fileName = f"{userId}_{farmId}_refresh.jpg"
+
+    if os.path.isfile(image_folder+fileName):
+        os.remove(image_folder+fileName)
+
+    topic = userId + '/' + farmId + '/refresh/'
+    bub_message(topic, 'refresh')
+
+    
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
         print('on_connect called!!!!!!!!')
