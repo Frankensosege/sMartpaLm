@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
+{% extends 'palm_base.html' %}
+
+        {% block head %}
         <title>MQTT Publish</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>
@@ -35,16 +35,83 @@
               });
             });
         </script>
-    </head>
-    <body>
-        Topic:
-        <input type="text" id="inp_topic" placeholder="Topic을 입력하세요"></p>
-        Message:
-        <input type="text" id="inp_msg" placeholder="메시지를 입력하세요">
-        </p>
-        <button onclick="Mos_pub()">Mos Publish</button>
-        <button onclick="Mos_sub()">Mos Subscribe</button>
-        <button onclick="Mos_disconnect()">종료</button>
+        <style>
+            .border-animation {
+              width: 100%;
+              height: 100%;
+              border: 4px solid;
+              animation: change-border-color 3s infinite;
+            } button {
+            width:4.5rem;
+            font-size:2rem;
+            }
+            @keyframes change-border-color {
+              0% {
+                border-color: white;
+              }
+              50% {
+                border-color: gray;
+              }
+              100% {
+                border-color: white;
+              }
+            }
+            table tr{
+            background-color:white;
+            color:black;
+            margin:0.5rem;
+            text-align:center;
+            border:1px solid black;"
+            }
+            #on-button {
+              background-color: linear-gradient(to bottom right, #ffff00, #00ff00);
+            }
+
+        </style>
+        {% endblock %}
+{% block farmname %}농장 1{% endblock %}
+{% block content %}
+
+
+    <table>
+        <tr><td>실시간 영상</td></tr>
+        <tr>
+            <td>
+            <div class="streaming" style="margin:0.5rem; width:300px; height:200px; border:1px solid black;">
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <div class="streaming" style="margin:0.5rem; width:300px; height:100px; border:1px solid black;">
+            </div>
+            </td>
+        </tr>
+        <form method="post" action="{% url 'user_mob:mqtt_m' %}">
+          {% csrf_token %}
+            <tr>
+                <td>
+                    <h3>Light</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="refresh" type="submit" style="font-size:0.4rem;" id="refresh" name="refresh">새로고침</button>
+                    <div class="btn-group" role="group">
+
+                        <div {% if on_led %}class="border-animation"{% else %}style="border: 4px solid; border-color:red;"{% endif %}>
+                            <button class="light-on-button" type="submit" id="on_button" name="on_button" {% if not on_led %} style="background-color:red; color:white; border-color:red;" {% else %} disabled style="background-color:gray; color:white; border-color:white;" {% endif %}>On</button>
+                        </div>
+                        <div {% if not on_led %}class="border-animation" {% else %}style="border: 4px solid; border-color:blue;" {% endif %}>
+                            <button class="light-on-button" type="submit" id="off_button" name="off_button" {% if on_led %} style="background-color:blue; color:white; border-color:blue;" {% else %} disabled style="background-color:gray; color:white; border-color:white;" {% endif %}>Off</button>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+        </form>
+    </table>
+        <h1>{% if on_led %}{{ on_led }}{% endif %}</h1>
 
         <script>
             function getCookie(name) {
@@ -67,13 +134,14 @@
                 var msg_inp = $('#inp_msg').val();
                 var topic_inp = $('#inp_topic').val();
                 $.ajax({
-                url: "{% url 'user_mob:pub_m' %}",
+                url: "/user_mob/mqtt_pub_mos.html",
                 data: { message: msg_inp, topic: topic_inp },
                 type: 'GET',
                 success: function(data) {
 
                   // Display the pages links
-                  alert('Publish complited....');
+                  console.log(response);
+                 // alert('Publish complited....');
                 }
               });
             }
@@ -104,5 +172,4 @@
               });
             }
         </script>
-    </body>
-</html>
+        {% endblock %}

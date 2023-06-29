@@ -2,11 +2,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from Utilities.comUtilities import get_menu_list
 from .forms import UserForm, UserCreationForm
 from admin_palm.views import admin_veiw as adpalm
 from user_mob.views import palm_view
-
 
 # Create your views here.
 
@@ -15,7 +13,7 @@ def index(request):
         if request.user.is_superuser:
             return adpalm(request)
         else:
-            return render(request, 'common/sMartpaLm_index.html')
+            return redirect('user_mob:user_palm')
     else:
         return redirect(request, 'common:login')
 
@@ -41,8 +39,8 @@ def login_sys(request):
                 user_format = {'user' : user}
                 return redirect('admin_palm:admin_palm'.format(user_format))
             else:
-                request.session['auth'] = 'U'
-                return render(request, 'common/sMartpaLm_index.html', {'user': user})
+                user_format = {'user': user}
+                return redirect('user_mob:user_palm'.format(user_format))
             # redirect_to = reverse('login:welcome', kwargs={'name':user.username})
         else:
             # display an error message

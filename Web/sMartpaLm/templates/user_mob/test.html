@@ -1,3 +1,10 @@
+
+
+{% if messages %}
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+{% endif %}
 {% load static %}
 
 <!doctype html>
@@ -53,7 +60,7 @@
             }
             .container-fluid {
               font-family: arial;
-              font-size: 0.7rem;
+              font-size: 12px;
               margin: 0%;
               width: 100%;
               height: 0%;
@@ -80,26 +87,23 @@
               transition: all 0.1s;
             }
             #btn-all-close {
-              width:3rem;
-              height:1.5rem;
               margin-bottom: 10px;
               background-color: #726996;
               border: none;
               color: #fff;
               cursor: pointer;
-              padding: 0.1rem 0.2rem;
+              padding: 10px 25px;
               float: right;
-              font-size:0.8rem;
             }
             #btn-all-close:hover {
               background-color: yellow;
               color: #000;
-              transition: all 0.2s;
+              transition: all 0.8s;
             }
             .active {
               display: block;
               /* 높이를 정해줘야지만 transition이 적용됨 */
-              height: 300px;
+              height: 500px;
             }
             table {
             }
@@ -119,61 +123,38 @@
 <header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
     {% include "navbar.html" %}
 </header>
-<div class="container-fluid">
-  <div class="row">
-    <h2 style="text-align: center; padding-top: 10px;">
-      AdminPalm <br><button id="btn-all-close">접기</button>
-    </h2>
-      <p>{% if modified %}{{ modified }}{% endif %}</p>
-  </div>
-    <table class="table table-bordered table-striped table-dark table-hover">
-      <thead class="thead-light text-center">
-        <tr>
-          <th>관리 목록</th>
-        </tr>
-      </thead>
-      <tbody class="text-center">
-        <tr>
-          <td class="text-left">
-            <div class="panel-palm-container">
-                <p class="panel-palm-title">사용자 관리</p>
-                <div class="panel-palm-answer">
-                  {% include "admin_palm/admin_user.html" %}
-                </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-left">
-            <div class="panel-palm-container">
-              <p class="panel-palm-title">농장 관리</p>
-              <div class="panel-palm-answer">
-                <div class="container-fluid">
-                  {% include "admin_palm/admin_farm.html" %}
-                 </div>
-            </div>
-          </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-left" width="50%">
-            <div class="panel-palm-container">
-              <p class="panel-palm-title">사용자 관리</p>
-              <div class="panel-palm-answer">
-                <div class="container-fluid">
-                  {% include "admin_palm/admin_user.html" %}
-                 </div>
-                </p>
-            </div>
-          </div>
-          </td>
-        </tr>
-        <tr>
-  </tbody>
-    </table>
-
-  </div>
-
+    <form id="signal-form" method="POST" action="user_mob/test.html">
+    {% csrf_token %}
+    <input type="hidden" id="signal-input" name="signal">
+    <button type="submit">Send Signal</button>
+</form>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </html>
+
+
+
+
+<script>
+    document.getElementById('signal-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get the signal value from the input field
+        var signal = document.getElementById('signal-input').value;
+
+        // Send the AJAX request to the Django view
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '{% url 'send_signal' %}', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log('Signal sent successfully');
+                } else {
+                    console.error('Failed to send signal');
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ 'signal': signal }));
+    });
+</script>
