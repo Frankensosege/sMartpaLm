@@ -367,7 +367,7 @@ class mos_subscriber:
         def on_message(client, userdata, msg):
             print("---------------- on_messge")
             print(f"Received '{msg.payload.decode()}' from '{msg.topic}' topic")
-            post_messge(msg)
+            self.post_messge(msg)
 
         def on_log(client, userdata, level, buf):
             print(f"log: {buf}")
