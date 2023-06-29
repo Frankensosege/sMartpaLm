@@ -385,7 +385,7 @@ class mos_subscriber:
                     # refresh topic인 경우
                     image_data = msg.payload
                     image = Image.open(io.BytesIO(image_data))
-                    filename = os.path.join(image_folder, usr_id + '_' + farm_no + "_refresh.jpg")
+                    filename = os.path.join(image_folder, f"{usr_id}_{farm_no}_refresh.jpg")
 
                 elif command == "image":
                     # 기타 topic인 경우
