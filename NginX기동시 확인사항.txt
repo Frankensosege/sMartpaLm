@@ -33,8 +33,9 @@ Linux Nginx-gunicorn-djang 연동
 1. gunicorn 연결
 /venv/sMartpaLm/bin# source activate
 pip3 install gunicorn
-root@ksb:/sMartpaLm/Web/sMartpaLm# gunicorn --bind 0:8000 config.wsgi:application
-서버재시작시 gunicor 실행을 위해 vi /etc/systemd/system/gunicorn.service 작성
-systemctl daemon-reload : 서비스를 새로등록 하거나 수정한 경우 daemon을 리로드해야 한다.
-systemctl start gunicorn
-systemctl enable gunicorn
+root@ksb:/sMartpaLm/Web/sMartpaLm# nohup /home/ksb/Web/venv/bin/gunicorn --bind 0:8000 config.wsgi:application
+--서버재시작시 gunicor 실행을 위해 vi /etc/systemd/system/gunicorn.service 작성
+--systemctl daemon-reload : 서비스를 새로등록 하거나 수정한 경우 daemon을 리로드해야 한다.
+--systemctl start gunicorn
+--systemctl enable gunicorn
+nohup nginx
