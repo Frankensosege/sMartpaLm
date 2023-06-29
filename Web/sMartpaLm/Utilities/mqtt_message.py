@@ -382,10 +382,14 @@ class mos_subscriber:
             usr_id, farm_no, command = msg.topic.split('/')
             try:
                 if command in "refresh":
+                    fileNm = f"{usr_id}_{farm_no}_refresh.jpg"
+                    if os.path.isfile(fileNm):
+                        os.remove(image_folder+fileNm)
+
                     # refresh topic인 경우
                     image_data = msg.payload
                     image = Image.open(io.BytesIO(image_data))
-                    filename = os.path.join(image_folder, f"{usr_id}_{farm_no}_refresh.jpg")
+                    filename = os.path.join(image_folder, fileNm)
 
                 elif command == "image":
                     # 기타 topic인 경우
