@@ -1,175 +1,128 @@
 {% extends 'palm_base.html' %}
 
-        {% block head %}
-        <title>MQTT Publish</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script>
-           // using jQuery
-            function getCookie(name) {
-              var cookieValue = null;
-              if (document.cookie && document.cookie != '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                  var cookie = jQuery.trim(cookies[i]);
-                  // Does this cookie string begin with the name we want?
-                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                  }
-                }
-              }
-              return cookieValue;
-            }
-            function csrfSafeMethod(method) {
-              // these HTTP methods do not require CSRF protection
-              return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-            }
-            $(document).ready(function() {
-              var csrftoken = getCookie('csrftoken');
-              $.ajaxSetup({
-                beforeSend: function(xhr, settings) {
-                  if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                  }
-                }
-              });
-            });
-        </script>
-        <style>
-            .border-animation {
-              width: 100%;
-              height: 100%;
-              border: 4px solid;
-              animation: change-border-color 3s infinite;
-            } button {
-            width:4.5rem;
-            font-size:2rem;
-            }
-            @keyframes change-border-color {
-              0% {
-                border-color: white;
-              }
-              50% {
-                border-color: gray;
-              }
-              100% {
-                border-color: white;
-              }
-            }
-            table tr{
-            background-color:white;
-            color:black;
-            margin:0.5rem;
-            text-align:center;
-            border:1px solid black;"
-            }
-            #on-button {
-              background-color: linear-gradient(to bottom right, #ffff00, #00ff00);
-            }
+{% load static %}
 
-        </style>
-        {% endblock %}
-{% block farmname %}농장 1{% endblock %}
+{% block head %}
+<style>
+    table{
+    width:100%;
+    position:relative;
+    border:1px solid black;
+    } tr{
+    width:100%;
+    background-color:white;
+    color:black;
+    margin:0.5rem;
+    text-align:center;
+    }
+    button{
+    border-radius: 3px;
+    width:6rem;
+    height:4rem;
+    margin:0px;
+    }
+    .refresh{
+    color:white;
+    border-color:white;
+    background-color:blue;
+    width:4rem;
+    height:1.5rem;
+    margin:0px;
+    }
+    .back{
+    color:white;
+    border-color:white;
+    background-color:blue;
+    width:4rem;
+    height:1.5rem;
+    margin:5px;
+    }
+    img
+    {
+    width:100%;
+    }
+</style>
+{% endblock %}
+
+{% block subtitle %}
+<div style="margin:0.4rem; padding:0.2rem;">
+    <h1 >PalmControl : {{ farm }}</h1>
+</div>
+{% endblock %}
+
 {% block content %}
+<form method="post" action="{% url 'user_mob:mqtt_m' %}">
+            {% csrf_token %}
+<label for="farm" class="col-sm-2 col-form-label" hidden></label>
+<input type="text" class="control-in-farm" name="farm" id="farm" value="{{ farm }}" hidden>
+<div>
+    <button class="back" type="submit" name="back" aria-label="Close">뒤로가기</button>
+</div>
+<div>
+    <table>
+      <tr><td>농장 카메라</td></tr>
+        <tr>
+            <td>
+                <div class="streaming" style="margin:0.8rem; width:100%; height:100%; margin:0;">
+                    <img src="{% static 'img/test_image.jpg' %}">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="streaming" style="margin:0.8rem; width:100%; height:100%; margin:0;">
+                    <br><br><br><br>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div style="text-align:right; margin:1rem;">
+        <div class="row">
+            <div class="col-3">
+                <button class="refresh" type="submit" style="font-size:0.4rem;" id="refresh" name="refresh">
+                    새로고침
+                </button>
 
+            </div>
+            <div class="col-6">
+                자동제어 :
+            </div>
+            <div class="col-2">
+                <div class="form-check form-switch" >
+                    <input class="form-check-input" type="checkbox" style="width:2rem; height:1rem;" role="switch" id="flexSwitchCheckDefault" value="on">
+                    <button type="submit" name="auto" hidden></button>
+                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="spinner-border spinner-border-sm" role="status">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <table>
-        <tr><td>실시간 영상</td></tr>
         <tr>
             <td>
-            <div class="streaming" style="margin:0.5rem; width:300px; height:200px; border:1px solid black;">
-            </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            <div class="streaming" style="margin:0.5rem; width:300px; height:100px; border:1px solid black;">
-            </div>
-            </td>
-        </tr>
-        <form method="post" action="{% url 'user_mob:mqtt_m' %}">
-          {% csrf_token %}
-            <tr>
-                <td>
-                    <h3>Light</h3>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button class="refresh" type="submit" style="font-size:0.4rem;" id="refresh" name="refresh">새로고침</button>
-                    <div class="btn-group" role="group">
-
-                        <div {% if on_led %}class="border-animation"{% else %}style="border: 4px solid; border-color:red;"{% endif %}>
-                            <button class="light-on-button" type="submit" id="on_button" name="on_button" {% if not on_led %} style="background-color:red; color:white; border-color:red;" {% else %} disabled style="background-color:gray; color:white; border-color:white;" {% endif %}>On</button>
-                        </div>
-                        <div {% if not on_led %}class="border-animation" {% else %}style="border: 4px solid; border-color:blue;" {% endif %}>
-                            <button class="light-on-button" type="submit" id="off_button" name="off_button" {% if on_led %} style="background-color:blue; color:white; border-color:blue;" {% else %} disabled style="background-color:gray; color:white; border-color:white;" {% endif %}>Off</button>
-                        </div>
-
+                <div class="row">
+                    <div class="col">
+                        <button class="light-on-button" type="submit" id="on_button" style="background-color:#ffd700; color:black; border-color:white;" name="on_button">
+                            <strong>Light</strong><strong style="color:white;"> On </strong>
+                            <div style="width:3rem; height:4rem; padding:0.5rem 2rem;"></div>
+                        </button>
+                        <button class="light-on-button" type="submit" id="off_button" style="background-color:gray; color:white; border-color:black;" name="off_button">
+                            <strong>Light</strong><strong style="color:black;"> Off </strong>
+                            <div style="width:3rem; height:4rem; padding:0.5rem 2rem;">
+                            </div>
+                        </button>
                     </div>
-                </td>
-            </tr>
-        </form>
+                </div>
+            </td>
+        </tr>
     </table>
-        <h1>{% if on_led %}{{ on_led }}{% endif %}</h1>
+  </div>
+</form>
+{% endblock %}
 
-        <script>
-            function getCookie(name) {
-              var cookieValue = null;
-              if (document.cookie && document.cookie !== '') {
-                  var cookies = document.cookie.split(';');
-                  for (var i = 0; i < cookies.length; i++) {
-                      var cookie = cookies[i].trim();
-                      // Does this cookie string begin with the name we want?
-                      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                          break;
-                      }
-                  }
-              }
-              return cookieValue;
-            }
 
-            function Mos_pub() {
-                var msg_inp = $('#inp_msg').val();
-                var topic_inp = $('#inp_topic').val();
-                $.ajax({
-                url: "/user_mob/mqtt_pub_mos.html",
-                data: { message: msg_inp, topic: topic_inp },
-                type: 'GET',
-                success: function(data) {
-
-                  // Display the pages links
-                  console.log(response);
-                 // alert('Publish complited....');
-                }
-              });
-            }
-
-            function Mos_sub() {
-                var msg_inp = $('#inp_topic').val();
-                $.ajax({
-                url: "{% url 'user_mob:sub_m' %}",
-                data: { topic: msg_inp },
-                type: 'GET',
-                success: function(data) {
-
-                  // Display the pages links
-                  alert('Subscriber connected....');
-                }
-              });
-            }
-
-            function Mos_disconnect() {
-                $.ajax({
-                url: "{% url 'user_mob:mqtt_disc' %}",
-                type: 'GET',
-                success: function(data) {
-
-                  // Display the pages links
-                  alert('Subscribe terminated....');
-                }
-              });
-            }
-        </script>
-        {% endblock %}

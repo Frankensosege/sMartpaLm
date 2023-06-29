@@ -1,49 +1,76 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from Utilities.mqtt_message import MosPub, MosSub
 from django.http import JsonResponse
 from django.http import HttpResponse
 from common.models import Farm, FarmPlant, Disease, SensorData
-from django.views.generic.base import TemplateView
-from django.views.generic import ListView, DetailView
-import requests
-import config.settings as set
+import paho.mqtt.publish as publish
+import time
 
 #MQTT 브로커에 연결되었을 때 호출되는 콜백 함수
+def send_mqtt_message(topic, message):
+    start_request = time.time()
+    while True:
+        if time.time() - start_request >= 5:
+            break
+        else:
+            broker_address = "16.170.241.38"  # Mosquitto 브로커 IP 주소
+            publish.single(topic, message, hostname=broker_address)
+            time.sleep(1)
+
+def mqtt_mosquitto(request, context=None):
+    if request.method == 'POST':
+        farm = request.POST.get('farm')
+        if 'back' in request.POST:
+            return palm_view(request)
+        elif 'on_button' in request.POST:
+            send_mqtt_message('led/control','on')
+        elif 'off_button' in request.POST:
+            send_mqtt_message('led/control','off')
+    return render(request, 'user_mob/mqtt_pub_mos.html', context)
+
+def palm_view(request, context=None):
+    user = request.user
+    username = user.username
+    palm_farms = Farm.objects.filter(user_id=user.id)
+    farm_list = list(palm_farms)
+    palm_context = {}
+    for farm in farm_list:
+        palm_values = FarmPlant.objects.filter(id=farm.id)
+        if palm_values:
+            palm_list = list(palm_values)
+            palm_context[Farm.name] = palm_list
+    if not context:
+        context = {
+            'username': username,
+            'farm_list': farm_list,
+            'palm_context': palm_context
+        }
+    else:
+        context['username'] = username
+        context['farm_list'] = farm_list
+        context['palm_context'] = palm_context
+    if 'control-palm' in request.POST:
+        context['farm'] = request.POST.get('farm')
+        return mqtt_mosquitto(request,context)
+        # return render(request, 'user_mob/mqtt_pub_mos.html', context)
+    return render(request, 'palm_base.html', context)
+
+
 
 # Create your views here.
 def mqtt_rabbit(request):
     pass
-def mqtt_mosquitto(request, context=None):
-    pass
-    # if request.method == 'POST':
-    #
-    #     if 'on_button' in request.POST:
-    #         led_control = 'on'
-    #         on_led= True
-    #           # "led/control" 토픽에 "on" 메시지 발행
-    #     elif 'off_button' in request.POST:
-    #         led_control = 'off'
-    #         on_led = False # "led/control" 토픽에 "off" 메시지 발행
-    #     elif 'refresh' in request.POST:
-    #         refresh = 'picture'
-    #              # on_message(client)
-    # else:
-    #     led_control = ''
-    #     on_led = False
-    #     refresh = ''# 임시 / 신호혹은 db데이터를 받는 부분
-    # if context:
-    #     context['led/control'] = str(led_control
-    #     context['on_led'] = on_led
-    #     context['refresh'] = refresh
-    # else:
-    #     context = {
-    #         'led/control' : led_control,
-    #         'on_led' : on_led,
-    #         'refresh' : refresh,
-    #     }
-    # send_mqtt_message(context)
-    # print(context)
-    # return redirect('mqtt_m'.format(context))
+
+def add_context(context=None, key=None, value=None):
+    if context:
+        context[key] = value
+    else:
+        context={
+            key:value,
+        }
+    return context
+
+
 
 
 def mqtt_mossub(request, data):
@@ -84,30 +111,3 @@ def mqtt_disconnect(request):
 def index(request):
     return HttpResponse("농장관리자 페이지")
 
-def palm_view(request, context=None):
-    user = request.user
-    username = user.username
-    palm_farms = Farm.objects.filter(user_id=user.id)
-    farm_list = list(palm_farms)
-    palm_context = {}
-    for farm in farm_list:
-        palm_values = FarmPlant.objects.filter(id=farm.id)
-        if palm_values:
-            palm_list = list(palm_values)
-            palm_context[Farm.name] = palm_list
-    if not context:
-        context = {
-            'username':username,
-            'farm_list': farm_list,
-            'palm_context': palm_context
-        }
-    else:
-        context['username'] = username
-        context['farm_list'] = farm_list
-        context['palm_context'] = palm_context
-    if request.method == 'GET':
-        if 'button-control' in request.GET:
-            farmname = request.GET.get('button-control-text')
-            context['farmname'] = farmname
-            return mqtt_mosquitto(request, context)
-    return render(request, 'palm_base.html', context)
