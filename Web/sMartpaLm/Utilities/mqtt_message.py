@@ -265,8 +265,8 @@ import io, os
 from datetime import datetime
 
 def on_led(userId, farmid):
-    topic = userId + '/' + farmid
-    bub_message(topic, 'ledon')
+    topic = userId + '/' + farmid + '/LED/'
+    bub_message(topic, 'on')
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
