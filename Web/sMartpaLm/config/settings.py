@@ -97,7 +97,7 @@ DATABASES = {
         'NAME': 'smartpalm',
         'USER': 'smartpalm',
         'PASSWORD': 'smartpalm',
-        'HOST': 'localhost',
+        'HOST': '16.170.241.38',
         'PORT': '3306',
     }
 }
