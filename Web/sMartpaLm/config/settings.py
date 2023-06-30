@@ -94,9 +94,9 @@ AUTH_USER_MODEL = 'common.User'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smartpalm',
+        'NAME': 'sMartpaLm',
         'USER': 'smartpalm',
-        'PASSWORD': 'smartpalm',
+        'PASSWORD': 'sMartpaLm',
         'HOST': '16.170.241.38',
         'PORT': '3306',
     }
