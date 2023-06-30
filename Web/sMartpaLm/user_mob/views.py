@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, reverse
-from Utilities.mqtt_message import MosPub, MosSubm, bub_message
+from django.shortcuts import render
+from Utilities.mqtt_message import bub_message
 from django.http import JsonResponse
 from django.http import HttpResponse
 from common.models import Farm, FarmPlant, Disease, SensorData
@@ -58,9 +58,6 @@ def palm_view(request, context=None):
 
 
 # Create your views here.
-def mqtt_rabbit(request):
-    pass
-
 def add_context(context=None, key=None, value=None):
     if context:
         context[key] = value
