@@ -8,7 +8,8 @@ import json
 
 # Create your views here.
 
-def admin_veiw(request, context=None):
+def admin_veiw(request, username=None ,context=None):
+    username=request.user.username
     palm_users = User.objects.all().order_by('id')
     user_list = list(palm_users)
     farm_context = {}
@@ -24,6 +25,7 @@ def admin_veiw(request, context=None):
             'farm_context':farm_context
         }
     else:
+        context['username'] = username
         context['user_list'] = user_list
         context['farm_context'] = farm_context
     return render(request, 'admin_base.html', context)
@@ -63,11 +65,10 @@ def create_farm(request):
     name = request.POST.get('name')
     form = AdminFarmForm(request.POST)
     user_row = get_object_or_404(User, id = user_id)
-    add_name = '[' + user_row.username + ']' + name
-    if not Farm.objects.filter(name=add_name).exists():
+    if not Farm.objects.filter(name=name).exists():
         if form.is_valid():
             farm = form.save(commit=False)
-            farm.name = add_name
+            farm.name = name
             farm.user = user_row
             farm.save()
             context = {
