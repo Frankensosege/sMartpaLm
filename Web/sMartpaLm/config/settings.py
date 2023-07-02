@@ -88,16 +88,15 @@ AUTH_USER_MODEL = 'common.User'
 #     }
 # }
 
-
-
 # MySQL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sMartpaLm',
+        'NAME': 'smartpalm',
         'USER': 'smartpalm',
         'PASSWORD': 'smartpalm',
-        'HOST': '16.170.241.38',
+        'HOST' : 'localhost',
+        # 'HOST': '16.170.241.38',
         'PORT': '3306',
     }
 }

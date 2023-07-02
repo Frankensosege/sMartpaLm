@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from Utilities.mqtt_message import bub_message
 from django.http import JsonResponse
 from django.http import HttpResponse
-from common.models import Farm, FarmPlant, Disease, SensorData
+from Utilities.comUtilities import get_refresh_imgpath, get_context_palm
 import paho.mqtt.publish as publish
 import time
 
@@ -17,58 +17,44 @@ def send_mqtt_message(topic, message):
             publish.single(topic, message, hostname=broker_address)
             time.sleep(1)
 
-def mqtt_mosquitto(request, context=None):
+def mqtt_mosquitto(request, username, farm):
     if request.method == 'POST':
+        username = request.user.username
         farm = request.POST.get('farm')
-        if 'back' in request.POST:
-            return palm_view(request)
-        elif 'on_button' in request.POST:
-            send_mqtt_message('led/control','on')
-        elif 'off_button' in request.POST:
-            send_mqtt_message('led/control','off')
-    return render(request, 'user_mob/mqtt_pub_mos.html', context)
-
-def palm_view(request, context=None):
-    user = request.user
-    username = user.username
-    palm_farms = Farm.objects.filter(user_id=user.id)
-    farm_list = list(palm_farms)
-    palm_context = {}
-    for farm in farm_list:
-        palm_values = FarmPlant.objects.filter(id=farm.id)
-        if palm_values:
-            palm_list = list(palm_values)
-            palm_context[Farm.name] = palm_list
-    if not context:
         context = {
-            'username': username,
-            'farm_list': farm_list,
-            'palm_context': palm_context
+            'username':username,
+            'farm':farm,
         }
-    else:
-        context['username'] = username
-        context['farm_list'] = farm_list
-        context['palm_context'] = palm_context
+        url = reverse('user_mob:mqtt_m', kwargs=context)
+        print(username, farm)
+        # send_mqtt_message('refresh', 'picture')
+        if 'back' in request.POST:
+            return redirect('user_mob:user_mob')
+        elif 'on_button' in request.POST:
+            send_mqtt_message('led/control', 'on')
+        elif 'off_button' in request.POST:
+            send_mqtt_message('led/control', 'off')
+        elif 'refresh' in request.POST:
+            send_mqtt_message('refresh', 'picture')
+            start = time.time()
+            while True:
+                if time.time() - start >= 5:
+                    return render(request, 'user_mob/mqtt_pub_mos.html', context)
+        return redirect(url)
+    return render(request, 'user_mob/mqtt_pub_mos.html')
+def palm_view(request, username, farm=None, context=None):
     if 'control-palm' in request.POST:
-        context['farm'] = request.POST.get('farm')
-        return mqtt_mosquitto(request,context)
+        username = request.user.username
+        farm = request.POST.get('farm')
+        context= {
+            'farm': farm,
+            'username':username,
+        }
+        print(context,'1111')
+        url = reverse('user_mob:mqtt_m', kwargs=context)
+        return redirect(url)
         # return render(request, 'user_mob/mqtt_pub_mos.html', context)
     return render(request, 'palm_base.html', context)
-
-
-
-# Create your views here.
-def add_context(context=None, key=None, value=None):
-    if context:
-        context[key] = value
-    else:
-        context={
-            key:value,
-        }
-    return context
-
-
-
 
 def mqtt_mossub(request, data):
     return JsonResponse(data=data)
