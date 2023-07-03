@@ -7,7 +7,7 @@ icacls farmer.pem /inheritance:r /grant:r "%USERNAME%":(R)
 icacls farmer.pem
 ##
 
-ssh -i "palm.pem" ubuntu@ec2-13-48-129-227.eu-north-1.compute.amazonaws.com
+ssh -i "farmer.pem" ubuntu@ec2-13-48-129-227.eu-north-1.compute.amazonaws.com
 
 sudo su 관리자 권한으로 실행
 sudo apt update
