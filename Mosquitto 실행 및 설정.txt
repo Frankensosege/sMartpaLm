@@ -13,4 +13,4 @@
 
    모든 브로커 상태 메세지 구독
      mosquitto_sub -v -t \$SYS/#
-   mosquitto_sub -v -h 192.168.1.159 -p 1883 -t #
+   mosquitto_sub -h 16.170.241.38 -p 1883 -t "#" -v

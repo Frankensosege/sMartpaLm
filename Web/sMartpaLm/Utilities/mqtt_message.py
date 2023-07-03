@@ -268,14 +268,14 @@ def on_led(userId, farmid):
     topic = userId + '/' + farmid + '/LED/'
     bub_message(topic, 'on')
 
-def refresh_img(userId, farmId):
+def refresh_img(userID, farmID):
     image_folder = get_property('DATA', 'base_dir') + get_property('DATA', 'imgpath')
-    fileName = f"{userId}_{farmId}_refresh.jpg"
+    fileName = "refresh.jpg"
 
     if os.path.isfile(image_folder+fileName):
         os.remove(image_folder+fileName)
 
-    topic = userId + '/' + farmId + '/refresh/'
+    topic = userID + '/' + farmID + '/refresh/'
     bub_message(topic, 'refresh')
 
 
@@ -308,8 +308,8 @@ def connect_mqtt():
     client.on_publish = on_publish
     client.on_log = on_log
 
-    # address : localhost, port: 1883 에 연결
-    # self.client.connect('localhost', 1883)
+    # address : 16.170.241.38, port: 1883 에 연결
+    # self.client.connect('16.170.241.38', 1883)
     client.connect(get_property('URLs', 'mqtt_sever'), int(get_property('URLs', 'mqtt_port')), 60)
 
     return client
@@ -318,7 +318,7 @@ def bub_message(topic, message):
     client = connect_mqtt()
     client.loop_start()
     # topic 으로 메세지 발행
-    msg = f"messages: '{message}'"
+    msg = message
     result = client.publish(topic, msg)
     client.loop_stop()
     # 연결 종료
@@ -366,8 +366,9 @@ class mos_subscriber:
 
         def on_message(client, userdata, msg):
             print("---------------- on_messge")
-            print(f"Received '{msg.payload.decode()}' from '{msg.topic}' topic")
-            self.post_messge(msg)
+            # print(f"Received '{msg.payload.decode('utf-8')}' from '{msg.topic}' topic")
+            print("수신된 메시지:", msg,msg.topic)
+            self.post_message(msg ,msg.topic)
 
         def on_log(client, userdata, level, buf):
             print(f"log: {buf}")
@@ -391,34 +392,49 @@ class mos_subscriber:
 
         return client
 
-        def post_messge(msg):
-            image_folder = get_property('DATA', 'base_dir') + get_property('DATA', 'imgpath')
-            usr_id, farm_no, command = msg.topic.split('/')
-            try:
-                if not os.path.exists(get_property('DATA', 'base_dir')):
-                    os.makedirs(get_property('DATA', 'base_dir'))
+    def post_message(self, msg, topic):  
+        basepath = get_property('DATA', 'base_dir')
+        imagepath = get_property('DATA', 'imgpath')
+        usr_id, farm_no, command = topic.split('/')
+        
+        image_folder = basepath + imagepath + '/' + usr_id + '/' + farm_no
+        filename = "" 
+        try:
+            if not os.path.exists(basepath):
+                os.makedirs(basepath)
 
-                if not os.path.exists(get_property('DATA', 'base_dir') + get_property('DATA', 'imgpath')):
-                    os.makedirs(get_property('DATA', 'base_dir') + get_property('DATA', 'imgpath'))
+            if not os.path.exists(basepath + imagepath):
+                os.makedirs(basepath + imagepath)
 
-                if command in "refresh":
-                    # refresh topic인 경우
-                    image_data = msg.payload
-                    image = Image.open(io.BytesIO(image_data))
-                    filename = os.path.join(image_folder, f"{usr_id}_{farm_no}_refresh.jpg")
+            if not os.path.exists(basepath + imagepath + '/' + usr_id):
+                os.makedirs(basepath + imagepath + '/' + usr_id)
 
-                elif command == "image":
-                    # 기타 topic인 경우
-                    # 수신한 메시지의 페이로드를 이미지로 변환
-                    image_data = msg.payload
-                    image = Image.open(io.BytesIO(image_data))
-
-                    # 현재 시간을 파일명에 포함하여 이미지를 파일로 저장
-                    current_time = datetime.now().strftime("%Y-%m-%d %H-%M")
-                    filename = os.path.join(image_folder, f"{usr_id}_{farm_no}_{current_time}.jpg")
-
+            if not os.path.exists(basepath + imagepath + '/' + usr_id + '/' + farm_no):
+                os.makedirs(basepath + imagepath + '/' + usr_id + '/' + farm_no)
+                    
+            if command == "refreshpub":
+                # refresh command인 경우
+                image_data = msg.payload
+                image = Image.open(io.BytesIO(image_data))
+                filename = os.path.join(image_folder, "refresh.jpg")
                 image.save(filename)
-                print("Received and saved image: " + filename)
-            except Exception as e:
-                print("Error during image processing: " + str(e))
+
+            elif command == "image_data":
+                # 기타 topic인 경우
+                # 수신한 메시지의 페이로드를 이미지로 변환
+                image_data = msg.payload
+                image = Image.open(io.BytesIO(image_data))
+
+                # 현재 시간을 파일명에 포함하여 이미지를 파일로 저장
+                current_time = datetime.now().strftime("%Y-%m-%d %H-%M")
+                filename = os.path.join(image_folder, f"{current_time}.jpg")
+                image.save(filename)
+
+            else:
+                pass
+
+            print("Received and saved image: " + filename)
+
+        except Exception as e:
+            print("Error during image processing: " + str(e))
 
