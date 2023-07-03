@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'admin_palm',
     'user_mob',
     'common',
-    'mqtt_data',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
