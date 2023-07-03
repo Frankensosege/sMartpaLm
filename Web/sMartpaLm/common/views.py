@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, reverse
 from .forms import UserForm, UserCreationForm
 from admin_palm.views import admin_veiw as adpalm
 from user_mob.views import palm_view
@@ -44,15 +43,17 @@ client.connect(MQTT_BROKER, MQTT_PORT)
 
 client.loop_start()
 
-
 def index(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             return adpalm(request)
         else:
-            return redirect('user_mob:user_palm')
+            user = request.user
+            username = user.username
+            url = reverse('user_mob:user_mob', kwargs={'username':username})
+            return redirect(url)
     else:
-        return redirect(request, 'common:login')
+        return redirect('common:login')
 
 # views.py
 def login_sys(request):
@@ -73,11 +74,13 @@ def login_sys(request):
             request.session['username'] = username
             if user.is_superuser or user.is_staff:
                 request.session['auth'] = 'A'
-                user_format = {'user' : user}
-                return redirect('admin_palm:admin_palm'.format(user_format))
+                user_format = {'username' : user.username}
+                url = reverse('admin_palm:admin_palm', kwargs=user_format)
+                return redirect(url)
             else:
-                user_format = {'user': user}
-                return redirect('user_mob:user_palm'.format(user_format))
+                user_format = {'username' : user.username}
+                url = reverse('user_mob:user_mob', kwargs=user_format)
+                return redirect(url)
             # redirect_to = reverse('login:welcome', kwargs={'name':user.username})
         else:
             # display an error message
@@ -111,8 +114,3 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
-
-def welcome(request):
-    user = request.session.get('email')
-
-    return render(request, 'common/sMartpaLm_index.html', {'user': user})

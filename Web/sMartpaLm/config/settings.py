@@ -88,8 +88,6 @@ AUTH_USER_MODEL = 'common.User'
 #     }
 # }
 
-
-
 # MySQL
 DATABASES = {
     'default': {
@@ -97,7 +95,8 @@ DATABASES = {
         'NAME': 'smartpalm',
         'USER': 'smartpalm',
         'PASSWORD': 'smartpalm',
-        'HOST': '16.170.241.38',
+        'HOST' : 'localhost',
+        # 'HOST': '16.170.241.38',
         'PORT': '3306',
     }
 }
@@ -142,9 +141,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'data')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

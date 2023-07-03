@@ -1,0 +1,60 @@
+{% extends 'palm_base.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    .form-check-input {
+    margin:0.5em;
+    }
+    .mydiv {
+    height:300px;
+    overflow:scroll;
+    }
+    table {
+    border:2px solid white;
+    margin:0.3rem 0;
+    position:relative;
+    font-size: 12px;
+    background-color:white;
+    color:black;
+    width:100%;
+    }
+
+    table thead {
+    background-color:gray;
+    color:white;
+    }
+</style>
+
+<table class="table table-bordered table-striped table-dark table-hover">
+      <thead class="thead-light text-center">
+        <tr>
+          <th>내농장목록</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+      {% if farm_list %}
+      {% for farm in farm_list %}
+        <tr>
+          <td class="text-left">
+            <div class="panel-palm-container">
+                <p class="panel-palm-title">{{ farm.name }}</p>
+                <div class="panel-palm-answer">
+                    <a href="{% url 'user_mob:mqtt_m' username=user.username farm=farm.name %}"><button type="button" name="control-palm">원격제어</button></a>
+                </div>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+      {% endif %}
+      </tbody>
+    </table>
+{% endblock %}
+
+
+
+
+
+
+
