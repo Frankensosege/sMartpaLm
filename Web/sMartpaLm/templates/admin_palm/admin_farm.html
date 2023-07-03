@@ -26,6 +26,8 @@
     overflow:scroll;
     margin:0%;
     padding:0%;
+    display: flex;
+    justify-content: center;
     }
     table {
     border:2px solid white;
@@ -54,99 +56,94 @@
            <table>
             <thead style="border: 1px solid gray;">
                 <tr style="border: 1px solid gray;">
-                    <th style="border: 1px solid gray; width:10%;">No.</th>
-                    <th style="border: 1px solid gray; width:10%;">농장주 이름</th>
-                    <th style="border: 1px solid gray; width:90%;">농장수</th>
+                    <th style="border: 1px solid gray; width:30%;">No.</th>
+                    <th style="border: 1px solid gray; width:70%;">농장주 이름</th>
                 </tr>
             </thead>
-            {% if farm_context %}
-                {% for username, farm_list in farm_context.items %}
-                <tbody style="border: 1px solid gray;">
+               <tbody style="border: 1px solid gray;">
                           <tr style="border: 1px solid gray;">
                               <td style="border: 1px solid gray; font-size:16px;">{{ user.id }}</td>
                               <td style="border: 1px solid gray;"><h5>{{ user.username }}</h5></td>
-                              <td style="border: 1px solid gray; font-size:16px;">{{ farm_list|length }}</td>
                           </tr>
                 </tbody>
-                {% endfor %}
-            {% else %}
-                <tbody style="border: 1px solid gray;">
-                          <tr style="border: 1px solid gray;">
-                              <td style="border: 1px solid gray; font-size:16px;">{{ user.id }}</td>
-                              <td style="border: 1px solid gray;"><h5>{{ user.username }}</h5></td>
-                              <td style="border: 1px solid gray; font-size:16px;">0</td>
-                          </tr>
-                </tbody>
-            {% endif %}
             <thead style="border: 1px solid gray;">
                 <tr style="border: 1px solid gray;">
-                    <th style="border: 1px solid gray;">농장 번호</th>
+                    <th style="border: 1px solid gray;">농장 수</th>
                     <th style="border: 1px solid gray;">농장 목록</th>
-                    <th style="border: 1px solid gray;">비고</th>
                 </tr>
             </thead>
-          {% if farm_context %}
-            {% for username, farm_list in farm_context.items %}
-
-               {% if farm_list|length > 0 %}
-                    {% if username == user.username %}
-                      {% for farm in farm_list %}
-                       <tbody style="border: 1px solid gray;">
+               <tbody style="border: 1px solid gray;">
+            {% if farm_context %}
+                {% for username, farm_list in farm_context.items %}
+                   {% if farm_list|length > 0 %}
                             <tr>
-                                <td style="border: 1px solid gray;">
-                                        <br>
-                                            {{ farm.id }}<br>
-                                </td>
-                                <td style="border: 1px solid gray;">
-                                    <div style="width:15rem;">
-                                        <ul>
-                                            <br>
-                                            <li style="text-align:left; font-size:16px;">
-                                                {{ farm }}<hr>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <td style="border: 1px solid gray; font-size:16px;">{{ farm_list|length }}</td>
+                                    <td style="border: 1px solid gray;">
+                        {% if username == user.username %}
+                            {% for farm in farm_list %}
 
-                          {% endfor %}
-                        {% else %}
-                            <tr>
-                                <td style="border: 1px solid gray; font-size:16px;">-</td>
-                                <td style="border: 1px solid gray;">
-                                    <div style="width:15rem;">
-                                        <ul>
-                                            <br>
-                                            <li style="text-align:left; font-size:16px; color:gray;">
-                                                농장을 추가해 주세요 <br>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                        {% endif %}
-              {% endif %}
-            {% endfor %}
-          {% endif %}
-
-                       <form method="POST" action="{% url 'admin_palm:admin_farm'%}">
-                                {% csrf_token %}
-                                    {% include "form_errors.html" %}
-                                        <div class="row" style="padding:0.5rem;">
-                                            <div class="col-lg-12">
-                                                추가/삭제 :
-                                               <label for="user_id" class="col-sm-2 col-form-label" hidden></label>
-                                               <input type="text" class="form-control-userid" id="user_id" name="user_id" value='{{ user.id }}' hidden>
-                                               <label for="floatingInput" class="col-sm-2 col-form-label" hidden></label>
-                                               <input type="text" class="form-control-text" id="floatingInput" name="name" autocomplete="name" style="width:9rem; height:2rem; font-size:0.7rem" placeholder="농장명을 입력하세요">
-                                            </div>
+                                        <div style="width:15rem;">
+                                            <ul>
+                                                <br>
+                                                <li style="text-align:left; font-size:16px;">
+                                                    {{ farm }}<hr>
+                                                </li>
+                                            </ul>
                                         </div>
-                                       <div class="row" style="padding:0.5rem;">
-                                            <div class="col-lg-12">
-                                                <button class="btn btn-outline-success" name="button-add" style="width:4rem; height:1.5rem; --bs-btn-padding-y: .1rem; --bs-btn-padding-x: 0.5rem; --bs-btn-font-size: .4rem;" id="addfarm" type="submit">추가</button>
-                                                <button class="btn btn-outline-danger" name="button-del" style="width:4rem; height:1.5rem; --bs-btn-padding-y: .1rem; --bs-btn-padding-x: 0.5rem; --bs-btn-font-size: .4rem;" id="delfarm" type="submit">삭제</button>
-                                            </div>
-                                       </div>
-                                </form>
-                              </td>
-                            </tr>
+                                        {% endfor %}
+                        {% else %}
+                           <tbody style="border: 1px solid gray;">
+                                <tr>
+                                    <td style="border: 1px solid gray; font-size:16px;"> 0 </td>
+                                    <td style="border: 1px solid gray;">
+                                        <div style="width:15rem;">
+                                            <ul>
+                                                <br>
+                                                <li style="text-align:left; font-size:16px; color:gray;">
+                                                    [None]<hr>
+                                                </li>
+                                            </ul>
+                                        </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                        {% else %}
+                           <tbody style="border: 1px solid gray;">
+                                <tr>
+                                    <td style="border: 1px solid gray; font-size:16px;"> 0 </td>
+                                    <td style="border: 1px solid gray;">
+                                        <div style="width:15rem;">
+                                            <ul>
+                                                <br>
+                                                <li style="text-align:left; font-size:16px; color:gray;">
+                                                    [None]<hr>
+                                                </li>
+                                            </ul>
+                                        </div>
+          {% endif %}
+                                        <div class="row" style="text-align: right;">
+                                           <form method="POST" action="{% url 'admin_palm:admin_farm'%}">
+                                                    {% csrf_token %}
+                                                        {% include "form_errors.html" %}
+                                                            <div class="row" style="padding:0.5rem;">
+                                                                <div class="col-lg-12">
+                                                                    추가/삭제  :
+                                                                   <label for="user_id" class="col-sm-2 col-form-label" hidden></label>
+                                                                   <input type="text" class="form-control-userid" id="user_id" name="user_id" value='{{ user.id }}' hidden>
+                                                                   <label for="floatingInput" class="col-sm-2 col-form-label" hidden></label>
+                                                                   <input type="text" class="form-control-text" id="floatingInput" name="name" autocomplete="name" style="width:9rem; height:2rem; font-size:0.7rem" placeholder="농장명을 입력하세요">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" style="padding:0.5rem;">
+                                                                <div class="col-lg-12">
+                                                                    <button class="btn btn-outline-success" name="button-add" style="width:4rem; height:1.5rem; --bs-btn-padding-y: .1rem; --bs-btn-padding-x: 0.5rem; --bs-btn-font-size: .4rem;" id="addfarm" type="submit">추가</button>
+                                                                    <button class="btn btn-outline-danger" name="button-del" style="width:4rem; height:1.5rem; --bs-btn-padding-y: .1rem; --bs-btn-padding-x: 0.5rem; --bs-btn-font-size: .4rem;" id="delfarm" type="submit">삭제</button>
+                                                                </div>
+                                                            </div>
+                                           </form>
+                                        </div>
+                                    </td>
+                                </tr>
                         </tbody>
                     </table>
             {% endfor %}

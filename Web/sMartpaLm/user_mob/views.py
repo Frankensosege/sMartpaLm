@@ -1,60 +1,63 @@
 from django.shortcuts import render, redirect, reverse
-from Utilities.mqtt_message import bub_message
 from django.http import JsonResponse
 from django.http import HttpResponse
-from Utilities.comUtilities import get_refresh_imgpath, get_context_palm
-import paho.mqtt.publish as publish
-import time
+from Utilities.comUtilities import get_refresh_imgpath
+from Utilities.mqtt_message import bub_message
+import time, os
+from common.models import Farm
 
-#MQTT 브로커에 연결되었을 때 호출되는 콜백 함수
-def send_mqtt_message(topic, message):
-    start_request = time.time()
-    while True:
-        if time.time() - start_request >= 5:
-            break
-        else:
-            broker_address = "16.170.241.38"  # Mosquitto 브로커 IP 주소
-            publish.single(topic, message, hostname=broker_address)
-            time.sleep(1)
+def palm_view(request, username):
+    user = request.user
+    username = user.username
 
-def mqtt_mosquitto(request, username, farm):
-    if request.method == 'POST':
-        username = request.user.username
-        farm = request.POST.get('farm')
+    return render(request, 'palm_base.html', {'username' : username})
+
+def palm_list(request, username):
+    user = request.user
+    username = user.username
+    farm_values = Farm.objects.filter(user_id=user.id)
+    if farm_values:
+        farm_list = list(farm_values)
         context = {
-            'username':username,
-            'farm':farm,
+            'username' : username,
+            'farm_list' : farm_list
         }
+    else:
+        context = {
+            'username': username,
+            'modified': '등록된 농장이 없습니다.'
+        }
+    return render(request, 'user_mob/palm_list.html',context)
+
+
+def mqtt_mosquitto(request, username, farm, img_path=None):
+    img_path = get_refresh_imgpath(username,farm)
+    ref = {
+        'ref' : 'refresh',
+        'img_path': img_path,
+           }
+    context = {
+        'username': username,
+        'farm': farm,
+        'ref' : ref,
+    }
+    topic_led = username+'/'+farm+'/LED'
+
+    if request.method == 'POST':
         url = reverse('user_mob:mqtt_m', kwargs=context)
-        print(username, farm)
-        # send_mqtt_message('refresh', 'picture')
-        if 'back' in request.POST:
-            return redirect('user_mob:user_mob')
-        elif 'on_button' in request.POST:
-            send_mqtt_message('led/control', 'on')
+        if 'on_button' in request.POST:
+            print(username+'/'+farm+'/LED')
+            bub_message(topic_led, 'on')
+            return redirect(url)
         elif 'off_button' in request.POST:
-            send_mqtt_message('led/control', 'off')
+            bub_message(topic_led, 'off')
+            return redirect(url)
         elif 'refresh' in request.POST:
-            send_mqtt_message('refresh', 'picture')
-            start = time.time()
-            while True:
-                if time.time() - start >= 5:
-                    return render(request, 'user_mob/mqtt_pub_mos.html', context)
-        return redirect(url)
-    return render(request, 'user_mob/mqtt_pub_mos.html')
-def palm_view(request, username, farm=None, context=None):
-    if 'control-palm' in request.POST:
-        username = request.user.username
-        farm = request.POST.get('farm')
-        context= {
-            'farm': farm,
-            'username':username,
-        }
-        print(context,'1111')
-        url = reverse('user_mob:mqtt_m', kwargs=context)
-        return redirect(url)
-        # return render(request, 'user_mob/mqtt_pub_mos.html', context)
-    return render(request, 'palm_base.html', context)
+            bub_message('refresh', 'refresh')
+            time.sleep(5)
+            return redirect(url)
+    return render(request, 'user_mob/mqtt_pub_mos.html', context)
+
 
 def mqtt_mossub(request, data):
     return JsonResponse(data=data)

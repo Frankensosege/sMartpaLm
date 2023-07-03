@@ -1,10 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse
 from .forms import UserForm, UserCreationForm
 from admin_palm.views import admin_veiw as adpalm
-from user_mob.views import palm_view
+from .models import Farm
 
 # Create your views here.
 
@@ -13,7 +12,10 @@ def index(request):
         if request.user.is_superuser:
             return adpalm(request)
         else:
-            return redirect('user_mob:user_mob')
+            user = request.user
+            username = user.username
+            url = reverse('user_mob:user_mob', kwargs={'username':username})
+            return redirect(url)
     else:
         return redirect('common:login')
 
@@ -76,8 +78,3 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
-
-def welcome(request):
-    user = request.session.get('email')
-
-    return render(request, 'common/sMartpaLm_index.html', {'user': user})

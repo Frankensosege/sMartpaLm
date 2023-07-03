@@ -318,7 +318,7 @@ def bub_message(topic, message):
     client = connect_mqtt()
     client.loop_start()
     # topic 으로 메세지 발행
-    msg = f"messages: '{message}'"
+    msg = message
     result = client.publish(topic, msg)
     client.loop_stop()
     # 연결 종료

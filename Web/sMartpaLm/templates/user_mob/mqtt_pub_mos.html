@@ -1,6 +1,9 @@
 {% extends 'palm_base.html' %}
 
 {% load static %}
+{% url 'common:home' as current_site %}
+{% get_media_prefix as media_prefix %}
+
 
 {% block head %}
 <style>
@@ -46,25 +49,22 @@
 
 {% block subtitle %}
 <div style="margin:0.4rem; padding:0.2rem;">
-    <h1 style="text-align:center"><strong>PalmControl</strong></h1>
+    <h1 style="text-align:center"><strong>PalmControl : {{ farm }} </strong></h1>
 </div>
 {% endblock %}
 
+{% block close %} <button class="back" type="submit" name="back" aria-label="Close">뒤로</button> {% endblock %}
 {% block content %}
-<form method="post" action="{% url 'user_mob:mqtt_m' %}">
+
+<form method="post" action="{% url 'user_mob:mqtt_m' username=user.username farm=farm %}">
             {% csrf_token %}
-<label for="farm" class="col-sm-2 col-form-label" hidden></label>
-<input type="text" class="control-in-farm" name="farm" id="farm" value="{{ farm }}" hidden>
-<div>
-    <button class="back" type="submit" name="back" aria-label="Close">뒤로가기</button>
-</div>
 <div>
     <table>
       <tr><td>농장 카메라</td></tr>
         <tr>
             <td>
                 <div class="streaming" style="margin:0.8rem; width:100%; height:100%; margin:0;">
-                    <img src="{% static 'img/test_image.jpg' %}">
+                    <img src=img_path>
                 </div>
             </td>
         </tr>
