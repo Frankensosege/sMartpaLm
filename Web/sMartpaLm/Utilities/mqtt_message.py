@@ -397,20 +397,20 @@ class mos_subscriber:
         imagepath = get_property('DATA', 'imgpath')
         usr_id, farm_no, command = topic.split('/')
         
-        image_folder = basepath + imagepath + '/' + usr_id + '/' + farm_no
+        image_folder = './static/data/' + imagepath + usr_id + '/' + farm_no
         filename = "" 
         try:
-            if not os.path.exists(basepath):
-                os.makedirs(basepath)
+            if not os.path.exists('./static/data/'):
+                os.makedirs('./static/data/')
 
-            if not os.path.exists(basepath + imagepath):
-                os.makedirs(basepath + imagepath)
+            if not os.path.exists('./static/data/' + imagepath):
+                os.makedirs('./static/data/' + imagepath)
 
-            if not os.path.exists(basepath + imagepath + '/' + usr_id):
-                os.makedirs(basepath + imagepath + '/' + usr_id)
+            if not os.path.exists('./static/data/' + imagepath + '/' + usr_id):
+                os.makedirs('./static/data/' + imagepath + '/' + usr_id)
 
-            if not os.path.exists(basepath + imagepath + '/' + usr_id + '/' + farm_no):
-                os.makedirs(basepath + imagepath + '/' + usr_id + '/' + farm_no)
+            if not os.path.exists('./static/data/' + imagepath + '/' + usr_id + '/' + farm_no):
+                os.makedirs('./static/data/' + imagepath + '/' + usr_id + '/' + farm_no)
                     
             if command == "refreshpub":
                 # refresh command인 경우
