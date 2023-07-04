@@ -1,7 +1,7 @@
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseUserManager, Group, Permission
 from django.utils import timezone
 from django.db import models
-
+from django.apps import apps
 
 class UserManager(BaseUserManager):
     """User 에서 사용하기 위한 UserManager 생성"""
@@ -104,8 +104,13 @@ class Cure(models.Model):
         db_table = 'cure'
 
 class SensorData(models.Model):
-    farmpalnt = models.ForeignKey(FarmPlant, on_delete=models.DO_NOTHING)
-    date_sent = models.DateTimeField(default=timezone.now)
-    jason = models.CharField(max_length=300, null=True)
+    # farmpalnt = models.ForeignKey(FarmPlant, on_delete=models.DO_NOTHING)
+    # date_sent = models.DateTimeField(default=timezone.now)
+    # jason = models.CharField(max_length=300, null=True)
+    timestamp = models.DateTimeField()
+    ch0 = models.FloatField()
+    ch1 = models.FloatField()
     class Meta:
         db_table = 'sensor_data'
+    def __str__(self):
+        return f"SensorData {self.timestamp}"
