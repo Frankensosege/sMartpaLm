@@ -1,6 +1,5 @@
 import time, os
 import datetime
-from common.models import Farm, FarmPlant, Disease, SensorData
 from config.settings import BASE_DIR
 
 # 날짜, 시간 관련 문자열 형식

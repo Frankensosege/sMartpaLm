@@ -16,4 +16,4 @@ class AdminFarmForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control-text'}),
         }
-        exclude = ['user_id']
+        exclude = ['user_id', 'location', 'plant_id']

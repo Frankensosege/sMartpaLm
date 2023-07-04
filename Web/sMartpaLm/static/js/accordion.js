@@ -1,4 +1,4 @@
-document.querySelectorAll('.accordion-header').forEach(function(header, index) {
+document.querySelectorAll('.accordion-header').forEach(function(header) {
     header.addEventListener('click', function() {
         var isOpen = header.getAttribute('aria-expanded');
         var content = header.nextElementSibling.querySelector('.accordion-body');

@@ -10,7 +10,6 @@
     table{
     width:100%;
     position:relative;
-    border:1px solid black;
     } tr{
     width:100%;
     background-color:white;
@@ -19,18 +18,14 @@
     text-align:center;
     }
     button{
-    border-radius: 3px;
     width:6rem;
     height:4rem;
     margin:0px;
     }
     .refresh{
     color:white;
-    border-color:white;
+    border-color:blue;
     background-color:blue;
-    width:4rem;
-    height:1.5rem;
-    margin:0px;
     }
     .back{
     color:white;
@@ -53,25 +48,37 @@
 </div>
 {% endblock %}
 
-{% block close %} <button class="back" type="submit" name="back" aria-label="Close">뒤로</button> {% endblock %}
+{% block close %}<form method="post" action="{% url 'user_mob:mqtt_m' username=user.username farm=farm %}">
+    {% csrf_token %} <button class="back" type="submit" name="back" aria-label="Close">뒤로</button> </form>{% endblock %}
 {% block content %}
-
 <form method="post" action="{% url 'user_mob:mqtt_m' username=user.username farm=farm %}">
             {% csrf_token %}
+
 <div>
     <table>
       <tr><td>농장 카메라</td></tr>
         <tr>
             <td>
                 <div class="streaming" style="margin:0.8rem; width:100%; height:100%; margin:0;">
-                    <img src=img_path>
+                    <img src="{% static img_path %}">
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="streaming" style="margin:0.8rem; width:100%; height:100%; margin:0;">
-                    <br><br><br><br>
+                    <table>
+                        {% for key, value in data.items %}
+                        <tr>
+                            <td>
+                               {{ key }}
+                            </td>
+                            <td>
+                                {{ value }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
                 </div>
             </td>
         </tr>
@@ -79,9 +86,7 @@
     <div style="text-align:right; margin:1rem;">
         <div class="row">
             <div class="col-3">
-                <button class="refresh" type="submit" style="font-size:0.4rem;" id="refresh" name="refresh">
-                    새로고침
-                </button>
+
 
             </div>
             <div class="col-6">
@@ -107,15 +112,21 @@
             <td>
                 <div class="row">
                     <div class="col">
-                        <button class="light-on-button" type="submit" id="on_button" style="background-color:#ffd700; color:black; border-color:white;" name="on_button">
-                            <strong>Light</strong><strong style="color:white;"> On </strong>
-                            <div style="width:3rem; height:4rem; padding:0.5rem 2rem;"></div>
-                        </button>
-                        <button class="light-on-button" type="submit" id="off_button" style="background-color:gray; color:white; border-color:black;" name="off_button">
-                            <strong>Light</strong><strong style="color:black;"> Off </strong>
-                            <div style="width:3rem; height:4rem; padding:0.5rem 2rem;">
-                            </div>
-                        </button>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button class="light-on-button" type="submit" id="on_button" style="background-color:#ffd700; color:black; border-color:#ffd700;" name="on_button">
+                                <strong>Light</strong><strong style="color:white;"> On </strong>
+                                <div style="width:3rem; height:4rem; padding:0.5rem 2rem;"></div>
+                            </button>
+                            <button class="light-on-button" type="submit" id="off_button" style="background-color:gray; color:white; border-color:gray;" name="off_button">
+                                <strong>Light</strong><strong style="color:black;"> Off </strong>
+                                <div style="width:3rem; height:4rem; padding:0.5rem 2rem;">
+                                </div>
+                            </button>
+                            <button class="refresh" type="submit" style="font-size:0.4rem; width:8rem;" id="refresh" name="refresh">
+                                <strong>Refresh</strong>
+                                <div style="width:16rem; height:8rem; padding:0.5rem 2rem;"></div>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </td>
