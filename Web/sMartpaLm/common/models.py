@@ -28,7 +28,6 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """UserManager 를 objects 필드에 사용"""
-    # id = models.BigIntegerField(unique=True, primary_key=True)
     email = models.EmailField(max_length=255, unique=True)
     username = models.CharField(max_length=255)
     password = models.CharField(max_length=100)
@@ -37,6 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
     first_name = models.CharField(null=True, max_length=20, default="")
     last_name = models.CharField(null=True, max_length=20, default="")
+    nick_name = models.CharField(null=True, max_length=45, default="")
 
     # alias = models.CharField(max_length=20, null=True)
     # profile_img = models.ImageField(upload_to='profile', null=True)
@@ -64,25 +64,33 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
 class Farm(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=45, unique=True)
-    date_set = models.DateTimeField(default=timezone.now)
+    start_date = models.DateTimeField(default=timezone.now)
+    location = models.CharField(max_length=500, null=True)
+    autocontrol_yn = models.BooleanField(null=True,default=False)
+    use_yn = models.BooleanField(null=True, default=True)
+    plant_id = models.BooleanField(null=True)
 
     class Meta:
-        db_table = 'farms'
+        db_table = 'farm'
     def __str__(self):
         return self.name
-class Plant(models.Model):
+class Crop(models.Model):
     # id = models.BigIntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=45)
+    temperature = models.FloatField(null=True)
+    humidity = models.FloatField(null=True)
+    nutrition = models.CharField(max_length=500, null=True)
+    description = models.CharField(max_length=500, null=True)
 
     class Meta:
-        db_table = 'plant'
+        db_table = 'crop'
 class FarmPlant(models.Model):
     # id = models.BigIntegerField(unique=True, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     farm = models.ForeignKey(Farm, on_delete=models.CASCADE)
-    plant = models.ManyToManyField('Plant')
+    plant = models.ManyToManyField('Crop')
     date_planted = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -91,26 +99,36 @@ class FarmPlant(models.Model):
 class Disease(models.Model):
     # id = models.BigIntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=45)
-    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
+    plant = models.ForeignKey(Crop, on_delete=models.CASCADE)
+    img = models.CharField(max_length=100, null=True)
+    symptom = models.CharField(max_length=200, null=True)
+    action = models.CharField(max_length=500, null=True)
 
     class Meta:
         db_table = 'disease'
 
 class Cure(models.Model):
     disease = models.ForeignKey(Disease, on_delete=models.CASCADE)
-    cure = models.CharField(max_length=45)
+    action = models.CharField(max_length=500)
+    syptom = models.CharField(max_length=500)
 
     class Meta:
         db_table = 'cure'
 
-class SensorData(models.Model):
-    # farmpalnt = models.ForeignKey(FarmPlant, on_delete=models.DO_NOTHING)
-    # date_sent = models.DateTimeField(default=timezone.now)
-    # jason = models.CharField(max_length=300, null=True)
+class SensoredData(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    farm = models.ForeignKey(Farm, on_delete=models.DO_NOTHING)
     timestamp = models.DateTimeField()
-    ch0 = models.FloatField()
-    ch1 = models.FloatField()
+    co2_density = models.FloatField(max_length=45, null=True)
+    ch0 = models.FloatField(null=True) #light amount로 수정예정 / 삭제 필요
+    ch1 = models.FloatField(null=True) #light amount로 수정예정 /삭제 필요
+    light_amount = models.FloatField(null=True)
+    temperature = models.FloatField(null=True)
+    humidity = models.FloatField(null=True)
+    nutrition_amt = models.FloatField(null=True)
+    status_img = models.CharField(max_length=200, null=True)
+    predicted_status = models.CharField(max_length=500, null=True)
     class Meta:
-        db_table = 'sensor_data'
+        db_table = 'sensored_data'
     def __str__(self):
         return f"SensorData {self.timestamp}"

@@ -8,7 +8,7 @@ import json
 import paho.mqtt.client as mqtt
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import SensorData
+from .models import SensoredData
 
 # MQTT Broker 설정
 MQTT_BROKER = "16.170.241.38"
@@ -22,7 +22,7 @@ def receive_mqtt_message(payload):
     ch0 = message['ch0']
     ch1 = message['ch1']
     
-    sensor_data = SensorData(timestamp=timestamp, ch0=ch0, ch1=ch1)
+    sensor_data = SensoredData(timestamp=timestamp, ch0=ch0, ch1=ch1)
     sensor_data.save()
     
     return HttpResponse('OK')

@@ -122,9 +122,8 @@
                                         </div>
           {% endif %}
                                         <div class="row" style="text-align: right;">
-                                           <form method="POST" action="{% url 'admin_palm:admin_farm'%}">
+                                           <form method="post">
                                                     {% csrf_token %}
-                                                        {% include "form_errors.html" %}
                                                             <div class="row" style="padding:0.5rem;">
                                                                 <div class="col-lg-12">
                                                                     추가/삭제  :

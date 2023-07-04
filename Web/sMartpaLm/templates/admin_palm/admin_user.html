@@ -38,7 +38,7 @@
                 {% if user_list %}
                     {% for user in user_list %}
                       <tr style="border: 1px solid gray;">
-                          <form method="POST" action="{% url 'admin_palm:admin_user' %}" data-pk="{{ user.email }}">
+                          <form method="POST" action="{% url 'admin_palm:admin_palm' username=username %}" data-pk="{{ user.email }}">
                               {% csrf_token %}
                                 {% include "form_errors.html" %}
 
@@ -64,7 +64,7 @@
                                   </div>
                               </td>
                               <td style="border: 1px solid gray;">
-                                 <button style="font-size: 10px;" id="aduser" type="submit">ok</button>
+                                 <button style="font-size: 10px;" name="admin_user" id="aduser" type="submit">ok</button>
                               </td>
                           </form>
                       </tr>
