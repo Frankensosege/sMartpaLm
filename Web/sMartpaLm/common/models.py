@@ -52,7 +52,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         db_table = 'auth_user'
         ordering = ('-date_joined',)
-
     def __str__(self):
         return self.email
 
@@ -116,12 +115,11 @@ class Cure(models.Model):
         db_table = 'cure'
 
 class SensoredData(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    farm = models.ForeignKey(Farm, on_delete=models.DO_NOTHING)
-    timestamp = models.DateTimeField()
+    user_id = models.BigIntegerField(null=False, primary_key=True)
+    farm_id = models.BigIntegerField(null=False, primary_key=True)
+    sensor_date = models.DateTimeField(null=False, primary_key=True)
+    sensor_cnt = models.BigIntegerField(null=False, primary_key=True)
     co2_density = models.FloatField(max_length=45, null=True)
-    ch0 = models.FloatField(null=True) #light amount로 수정예정 / 삭제 필요
-    ch1 = models.FloatField(null=True) #light amount로 수정예정 /삭제 필요
     light_amount = models.FloatField(null=True)
     temperature = models.FloatField(null=True)
     humidity = models.FloatField(null=True)
@@ -131,4 +129,4 @@ class SensoredData(models.Model):
     class Meta:
         db_table = 'sensored_data'
     def __str__(self):
-        return f"SensorData {self.timestamp}"
+        return f"SensorData {self.sensor_date}"
