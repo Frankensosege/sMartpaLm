@@ -21,6 +21,7 @@ def palm_list(request, username):
         # '조회 시각': last_data.timestamp,
         # '밝기(ch0)': round(last_data.ch0, 6),
         # '어둡기(ch1)': round(last_data.ch1, 6),
+        # '조도': round(last_data.light_amount, 6) + 'lux',
     }
     farm_values = Farm.objects.filter(user_id=user.id)
     if farm_values:
@@ -47,7 +48,7 @@ def mqtt_mosquitto(request, username, farm):
         # '조회 시각': last_data.timestamp,
         # '밝기(ch0)': round(last_data.ch0, 6),
         # '어둡기(ch1)': round(last_data.ch1, 6),
-        # 조도 : round(last_data.light_amount, 6) * 'lux'
+        # '조도' : round(last_data.light_amount, 6) + 'lux',
     }
     context = {
         'username': username,
@@ -57,18 +58,14 @@ def mqtt_mosquitto(request, username, farm):
     }
     topic_led = username+'/'+farm+'/LED'
     if request.method == 'POST':
-        # url = reverse('user_mob:mqtt_m', kwargs=context, )
         if 'on_button' in request.POST:
             print(username+'/'+farm+'/LED')
             bub_message(topic_led, 'on')
-            # return render(request, 'user_mob/mqtt_pub_mos.html', context)
         elif 'off_button' in request.POST:
             bub_message(topic_led, 'off')
-            # return render(request, 'user_mob/mqtt_pub_mos.html', context)
         elif 'refresh' in request.POST:
             bub_message('refresh', 'refresh')
             time.sleep(5)
-            # return render(request, 'user_mob/mqtt_pub_mos.html', context)
         elif 'back' in request.POST:
             farm_values = Farm.objects.filter(user_id=request.user.id)
             if farm_values:
@@ -76,7 +73,6 @@ def mqtt_mosquitto(request, username, farm):
             context['farm_list'] = farm_list
             return render(request, 'user_mob/palm_list.html', context)
     return render(request, 'user_mob/mqtt_pub_mos.html', context)
-
 
 def mqtt_mossub(request, data):
     return JsonResponse(data=data)
