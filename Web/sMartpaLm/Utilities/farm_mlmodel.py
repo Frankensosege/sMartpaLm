@@ -34,9 +34,10 @@ def predict_disease(image_path, crop_id):
 
     # 예측 수행
     predictions = model.predict(x)
-    class_indices = np.argmax(predictions, axis=1)
+    # class_indices = np.argmax(predictions, axis=1)
 
-    return class_indices
+    # return class_indices
+    return predictions
 
 
 class SmartFarmModel:
