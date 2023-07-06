@@ -25,17 +25,18 @@ def preprocessing_data(train_dir):
 def predict_disease(image_path, crop_id):
     model_path = get_property('DATA', 'base_dir') + get_property('DATA', 'model') + f"{crop_id}_disease.h5"
 
+    predictions = None
     # 모델 로드
     if model_path is not None and os.path.exists(model_path):
         model = SmartFarmModel(window_size=5, image_shape=(256, 256, 3)).get_conv_lstm()
         model.add(layers.Dense(5, activation='softmax'))
         model = model.load_model(model_path)
 
-    # 이미지 불러오기 및 전처리
-    x = preprocessing_data(image_path)
+        # 이미지 불러오기 및 전처리
+        x = preprocessing_data(image_path)
 
-    # 예측 수행
-    predictions = model.predict(x)
+        # 예측 수행
+        predictions = model.predict(x)
     # class_indices = np.argmax(predictions, axis=1)
 
     # return class_indices
